@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:good_app/app/app.dart';
+import 'package:good_app/features/features.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -7,16 +9,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Good App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('App'),
-          centerTitle: true,
-        ),
-        body: Container(),
-      ),
+      theme: AppTheme.theme,
+      home: LoginPage(),
     );
   }
 }

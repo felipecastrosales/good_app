@@ -1,1 +1,3 @@
-class AppTexts {}
+class AppTexts {
+  static const projectName = '';
+}
