@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:good_app/app/app.dart';
-import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/data/data.dart';
 
 class AuthRefreshTokenInterceptor extends Interceptor {
@@ -26,7 +25,7 @@ class AuthRefreshTokenInterceptor extends Interceptor {
       final reqPath = err.requestOptions.path;
 
       if (respStatusCode == 403 || respStatusCode == 401) {
-        if (reqPath != '/auth/refresh') {
+        if (reqPath != '/auth/token/refresh') {
           final authRequired =
               err.requestOptions.extra[ConstantsStorage.authRequiredKey] ??
                   false;
