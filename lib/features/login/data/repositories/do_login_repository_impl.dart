@@ -3,29 +3,29 @@ import 'package:good_app/app/core/errors/errors.dart';
 import 'package:good_app/app/core/logger/logger.dart';
 import 'package:good_app/features/login/login.dart';
 
-class DoLoginRepositoryImpl implements DoLoginRepository {
-  final DoLoginDataSource _doLoginDataSource;
+class LoginRepositoryImpl implements LoginRepository {
+  final LoginDataSource _loginDataSource;
   final AppLogger _log;
 
-  DoLoginRepositoryImpl({
-    required DoLoginDataSource doLoginDataSource,
+  LoginRepositoryImpl({
+    required LoginDataSource loginDataSource,
     required AppLogger log,
-  })  : _doLoginDataSource = doLoginDataSource,
+  })  : _loginDataSource = loginDataSource,
         _log = log;
 
   @override
-  Future<Either<Failure, User>> doLogin({
+  Future<Either<Failure, User>> login({
     required String email,
     required String password,
   }) async {
     try {
-      final user = await _doLoginDataSource.doLogin(
+      final user = await _loginDataSource.login(
         email: email,
         password: password,
       );
       return Right(user);
     } on Failure catch (e, s) {
-      _log.error('Error on DoLoginRepositoryImpl', e, s);
+      _log.error('Error on $this', e, s);
       return Left(e);
     }
   }

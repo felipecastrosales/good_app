@@ -1,11 +1,11 @@
-class DoLoginParams {
+class LoginParams {
   final String email;
   final String password;
 
-  DoLoginParams({
+  LoginParams({
     required this.email,
     required this.password,
   });
 }
 
-class DoLogin {}
+class Login {}
