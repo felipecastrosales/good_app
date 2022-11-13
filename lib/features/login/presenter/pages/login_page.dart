@@ -29,13 +29,13 @@ class LoginPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 32),
-                InkWell(
-                  onTap: () {},
-                  child: Image.asset(
-                    AssetsData.logo,
-                    height: context.height * .3,
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {},
+                //   child: Image.asset(
+                //     AssetsData.logo,
+                //     height: context.height * .3,
+                //   ),
+                // ),
                 const SizedBox(height: 24),
                 CustomTextFormField(
                   hintText: 'Insira seu usuário',
