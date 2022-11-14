@@ -1,19 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:good_app/app/app.dart';
 import 'package:good_app/features/features.dart';
 import 'package:mocktail/mocktail.dart';
 
-var tUser = User(
-  bornDate: faker.date.dateTime(),
-  email: email,
-  name: faker.person.name(),
-  imageUrl: faker.image.image(),
-);
-
-var email = faker.internet.email();
-var password = faker.internet.password();
+import '../../../../fixtures/user_fixtures.dart';
 
 class MockDoLoginRepository extends Mock implements LoginRepository {}
 
@@ -21,30 +12,32 @@ void main() {
   LoginRepository doLoginRepository = MockDoLoginRepository();
   DoLogin doLogin = DoLogin(loginRepository: doLoginRepository);
 
+  final user = UserFixtures();
+
   test('Should login', () async {
     when(
       () => doLoginRepository.login(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       ),
     ).thenAnswer(
-      (_) async => Right(tUser),
+      (_) async => Right(user.tUser),
     );
 
     var result = await doLogin(
       LoginParams(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       ),
     );
 
     expect(result, isA<Right>());
-    expect(result, Right(tUser));
+    expect(result, Right(user.tUser));
 
     verify(
       () => doLoginRepository.login(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       ),
     ).called(1);
 
@@ -54,8 +47,8 @@ void main() {
   test('Should get wrong password error when logging in', () async {
     when(
       () => doLoginRepository.login(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       ),
     ).thenAnswer(
       (_) async => Left(
@@ -65,8 +58,8 @@ void main() {
 
     var result = await doLogin(
       LoginParams(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       ),
     );
 
@@ -78,8 +71,8 @@ void main() {
 
     verify(
       () => doLoginRepository.login(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       ),
     ).called(1);
 
@@ -89,8 +82,8 @@ void main() {
   test('Should get not found error when logging in', () async {
     when(
       () => doLoginRepository.login(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       ),
     ).thenAnswer(
       (_) async => Left(
@@ -100,8 +93,8 @@ void main() {
 
     var result = await doLogin(
       LoginParams(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       ),
     );
 
@@ -113,8 +106,8 @@ void main() {
 
     verify(
       () => doLoginRepository.login(
-        email: email,
-        password: password,
+        email: user.email,
+        password: user.password,
       ),
     ).called(1);
 
