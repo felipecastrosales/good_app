@@ -43,7 +43,7 @@ class DioRestClient implements RestClient {
   }
 
   @override
-  RestClient unauth() {
+  RestClient unAuth() {
     _defaultOptions.extra[ConstantsStorage.authRequiredKey] = false;
     return this;
   }

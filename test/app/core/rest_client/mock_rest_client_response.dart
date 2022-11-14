@@ -1,0 +1,17 @@
+import 'package:good_app/app/core/rest_client/rest_client_response.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockRestClientResponse<T> extends Mock implements RestClientResponse<T> {
+  MockRestClientResponse({
+    this.data,
+    this.statusCode,
+    this.statusMessage,
+  });
+
+  @override
+  final T? data;
+  @override
+  final int? statusCode;
+  @override
+  final String? statusMessage;
+}
