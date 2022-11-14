@@ -3,11 +3,11 @@ import 'package:good_app/app/app.dart';
 import 'package:good_app/features/features.dart';
 
 class LoginParams {
-  final String email;
+  final String username;
   final String password;
 
   LoginParams({
-    required this.email,
+    required this.username,
     required this.password,
   });
 }
@@ -22,7 +22,7 @@ class DoLogin extends UseCase<User, LoginParams> {
   @override
   Future<Either<Failure, User>> call(LoginParams params) async {
     return await _loginRepository.login(
-      email: params.email,
+      username: params.username,
       password: params.password,
     );
   }

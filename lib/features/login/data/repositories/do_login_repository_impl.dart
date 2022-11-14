@@ -15,14 +15,15 @@ class LoginRepositoryImpl implements LoginRepository {
 
   @override
   Future<Either<Failure, User>> login({
-    required String email,
+    required String username,
     required String password,
   }) async {
     try {
       final user = await _loginDataSource.login(
-        email: email,
+        username: username,
         password: password,
       );
+      _log.info('User logged in: $user');
       return Right(user);
     } on Failure catch (e, s) {
       _log.error('Error on $this', e, s);

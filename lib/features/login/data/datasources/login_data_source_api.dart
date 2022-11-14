@@ -11,15 +11,15 @@ class LoginDataSourceApi implements LoginDataSource {
 
   @override
   Future<UserModel> login({
-    required String email,
+    required String username,
     required String password,
   }) async {
     try {
-      const baseUrl = ConstantsApi.baseUrl;
+      const baseUrl = ConstantsApi.auth;
       var response = await _restClient.post(
         baseUrl,
         data: {
-          'email': email,
+          'username': username,
           'password': password,
         },
       );
