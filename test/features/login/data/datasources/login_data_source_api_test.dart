@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/app/core/rest_client/rest_client_response.dart';
-
-import 'package:good_app/features/features.dart';
 import 'package:mocktail/mocktail.dart';
+
+import 'package:good_app/app/core/rest_client/rest_client_response.dart';
+import 'package:good_app/features/features.dart';
 
 import '../../../../app/core/rest_client/mock_rest_client.dart';
 import '../../../../fixtures/fixtures.dart';
@@ -11,6 +11,10 @@ void main() {
   late MockRestClient restClient;
   late LoginDataSourceApi loginDataSourceApi;
   late MockAppLogger log;
+
+  final tUser = UserFixtures();
+  final tUsername = tUser.username;
+  final tPassword = tUser.password;
 
   setUp(() {
     restClient = MockRestClient();
@@ -26,8 +30,8 @@ void main() {
       () => restClient.post(
         any(),
         data: {
-          'username': 'felipecastrosales',
-          'password': '261203felipe',
+          'username': tUsername,
+          'password': tPassword,
         },
       ),
     ).thenAnswer(
@@ -41,8 +45,8 @@ void main() {
     );
 
     UserModel user = await loginDataSourceApi.login(
-      username: 'felipecastrosales',
-      password: '261203felipe',
+      username: tUsername,
+      password: tPassword,
     );
 
     expect(user, isA<UserModel>());
@@ -52,8 +56,8 @@ void main() {
       () => restClient.post(
         any(),
         data: {
-          'username': 'felipecastrosales',
-          'password': '261203felipe',
+          'username': tUsername,
+          'password': tPassword,
         },
       ),
     ).called(1);
