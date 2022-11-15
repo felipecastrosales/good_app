@@ -65,10 +65,7 @@ void main() {
     );
 
     expect(result, isA<Left>());
-    expect(
-      result,
-      Left(PasswordWrongFailure()),
-    );
+    expect(result, Left(PasswordWrongFailure()));
 
     verify(
       () => loginRepository.login(
@@ -100,10 +97,39 @@ void main() {
     );
 
     expect(result, isA<Left>());
-    expect(
-      result,
-      Left(NotFoundFailure()),
+    expect(result, Left(NotFoundFailure()));
+
+    verify(
+      () => loginRepository.login(
+        username: user.username,
+        password: user.password,
+      ),
+    ).called(1);
+
+    verifyNoMoreInteractions(loginRepository);
+  });
+
+  test('Should get server error when logging in', () async {
+    when(
+      () => loginRepository.login(
+        username: user.username,
+        password: user.password,
+      ),
+    ).thenAnswer(
+      (_) async => Left(
+        ServerFailure(),
+      ),
     );
+
+    var result = await doLogin(
+      LoginParams(
+        username: user.username,
+        password: user.password,
+      ),
+    );
+
+    expect(result, isA<Left>());
+    expect(result, Left(ServerFailure()));
 
     verify(
       () => loginRepository.login(
