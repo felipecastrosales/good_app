@@ -4,7 +4,7 @@ import 'package:good_app/app/app.dart';
 import 'package:good_app/features/features.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../fixtures/user_fixtures.dart';
+import '../../../../fixtures/fixtures.dart';
 
 class MockLoginRepository extends Mock implements LoginRepository {}
 
