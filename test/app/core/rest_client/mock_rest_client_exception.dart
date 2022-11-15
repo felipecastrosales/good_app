@@ -1,6 +1,7 @@
+import 'package:mocktail/mocktail.dart';
+
 import 'package:good_app/app/core/rest_client/rest_client_exception.dart';
 import 'package:good_app/app/core/rest_client/rest_client_response.dart';
-import 'package:mocktail/mocktail.dart';
 
 class MockRestClientException extends Mock implements RestClientException {
   MockRestClientException({

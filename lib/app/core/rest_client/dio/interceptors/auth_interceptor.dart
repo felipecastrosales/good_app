@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import 'package:good_app/data/data.dart';
 
 class AuthInterceptor extends Interceptor {

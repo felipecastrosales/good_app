@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
 import 'package:good_app/app/app.dart';
 import 'package:good_app/features/features.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/fixtures.dart';
 

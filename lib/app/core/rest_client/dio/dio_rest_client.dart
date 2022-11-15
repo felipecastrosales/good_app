@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
+
 import 'package:good_app/app/app.dart';
 import 'package:good_app/app/core/rest_client/rest_client_exception.dart';
 import 'package:good_app/app/core/rest_client/rest_client_response.dart';
 import 'package:good_app/data/data.dart';
+
 import 'interceptors/interceptors.dart';
 
 class DioRestClient implements RestClient {

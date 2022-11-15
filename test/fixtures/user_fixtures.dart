@@ -1,4 +1,5 @@
 import 'package:faker/faker.dart';
+
 import 'package:good_app/features/features.dart';
 
 class UserFixtures {

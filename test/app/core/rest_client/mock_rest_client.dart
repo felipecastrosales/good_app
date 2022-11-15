@@ -1,5 +1,6 @@
-import 'package:good_app/app/app.dart';
 import 'package:mocktail/mocktail.dart';
+
+import 'package:good_app/app/app.dart';
 
 class MockRestClient extends Mock implements RestClient {
   MockRestClient() {
