@@ -4,10 +4,13 @@ import 'package:good_app/features/login/login.dart';
 
 class LoginDataSourceApi implements LoginDataSource {
   final RestClient _restClient;
+  final AppLogger _log;
 
   LoginDataSourceApi({
     required RestClient restClient,
-  }) : _restClient = restClient;
+    required AppLogger log,
+  })  : _restClient = restClient,
+        _log = log;
 
   @override
   Future<UserModel> login({
@@ -23,8 +26,10 @@ class LoginDataSourceApi implements LoginDataSource {
           'password': password,
         },
       );
+      _log.info('Login response: $response');
       return UserModel.fromMap(response.data);
-    } catch (e) {
+    } catch (e, s) {
+      _log.error('Error on $this', e, s);
       throw ServerFailure();
     }
   }
