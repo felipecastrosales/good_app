@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:good_app/app/app.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/rest_client/rest_client_response.dart';
@@ -51,6 +52,46 @@ void main() {
 
     expect(user, isA<UserModel>());
     expect(user.toMap(), UserFixtures().userApi);
+
+    verify(
+      () => restClient.post(
+        any(),
+        data: {
+          'username': tUsername,
+          'password': tPassword,
+        },
+      ),
+    ).called(1);
+
+    verifyNoMoreInteractions(restClient);
+  });
+
+  test('Should throw exception when API returns error', () async {
+    when(
+      () => restClient.post(
+        any(),
+        data: {
+          'username': tUsername,
+          'password': tPassword,
+        },
+      ),
+    ).thenAnswer(
+      (invocation) => Future.value(
+        RestClientResponse(
+          data: null,
+          statusCode: 400,
+          statusMessage: 'Bad Request',
+        ),
+      ),
+    );
+
+    expect(
+      () async => await loginDataSourceApi.login(
+        username: tUsername,
+        password: tPassword,
+      ),
+      throwsA(isA<ServerFailure>()),
+    );
 
     verify(
       () => restClient.post(
