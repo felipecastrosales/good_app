@@ -1,17 +1,40 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import 'package:good_app/data/data.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../local_secure_storage_test.dart';
+import 'package:good_app/data/data.dart';
 
-void main() {
+import '../../../fixtures/fixtures.dart';
+
+void main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  const MethodChannel('plugins.it_nomads.com/flutter_secure_storage')
+      .setMockMethodCallHandler((MethodCall methodCall) async {
+    if (methodCall.method == 'deleteAll') {
+      return true;
+    }
+    return null;
+  });
+
   late LocalSecureStorage localSecureStorageImpl;
   late MockLocalSecureStorage mockLocalSecureStorage;
 
   setUp(() {
     localSecureStorageImpl = FlutterSecureStorageLocalStorageImpl();
     mockLocalSecureStorage = MockLocalSecureStorage();
+  });
+
+  test('should call clear method from LocalSecureStorage', () async {
+    // arrange
+    when(() => mockLocalSecureStorage.clear()).thenAnswer((_) async => true);
+    // act
+    final result = await localSecureStorageImpl.clear();
+    // assert
+    expect(() => result, returnsNormally);
+    verify(() => mockLocalSecureStorage.clear()).called(1);
   });
 
   group('Should call on FlutterSecureStorageLocalStorageImpl', () {
