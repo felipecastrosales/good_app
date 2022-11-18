@@ -11,13 +11,6 @@ import '../../../fixtures/fixtures.dart';
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
-  const MethodChannel('plugins.it_nomads.com/flutter_secure_storage')
-      .setMockMethodCallHandler((MethodCall methodCall) async {
-    if (methodCall.method == 'deleteAll') {
-      return true;
-    }
-    return null;
-  });
 
   late LocalSecureStorage localSecureStorageImpl;
   late MockLocalSecureStorage mockLocalSecureStorage;
@@ -27,40 +20,61 @@ void main() async {
     mockLocalSecureStorage = MockLocalSecureStorage();
   });
 
-  test('should call clear method from LocalSecureStorage', () async {
-    // arrange
-    when(() => mockLocalSecureStorage.clear()).thenAnswer((_) async => true);
-    // act
-    final result = await localSecureStorageImpl.clear();
-    // assert
-    expect(() => result, returnsNormally);
-    verify(() => mockLocalSecureStorage.clear()).called(1);
-  });
-
-  group('Should call on FlutterSecureStorageLocalStorageImpl', () {
+  group('Should call in FlutterSecureStorageLocalStorageImpl the method', () {
     test('clear', () async {
-      await localSecureStorageImpl.clear();
-      verify(() => mockLocalSecureStorage.clear()).called(1);
+      when(() => mockLocalSecureStorage.clear()).thenAnswer((_) async => true);
+      final result = await localSecureStorageImpl.clear();
+      expect(() => result, returnsNormally);
     });
 
     test('contains', () async {
-      await localSecureStorageImpl.contains('key');
-      verify(() => mockLocalSecureStorage.contains('key')).called(1);
+      when(
+        () => mockLocalSecureStorage.contains(any()),
+      ).thenAnswer((_) async => true);
+      final result = await localSecureStorageImpl.contains('key');
+      expect(() => result, returnsNormally);
     });
 
     test('read', () async {
-      await localSecureStorageImpl.read('key');
-      verify(() => mockLocalSecureStorage.read('key')).called(1);
+      when(
+        () => mockLocalSecureStorage.read(any()),
+      ).thenAnswer((_) async => 'value');
+      final result = await localSecureStorageImpl.read('key');
+      expect(() => result, returnsNormally);
     });
 
     test('remove', () async {
-      await localSecureStorageImpl.remove('key');
-      verify(() => mockLocalSecureStorage.remove('key')).called(1);
+      when(
+        () => mockLocalSecureStorage.remove(any()),
+      ).thenAnswer((_) async => true);
+      final result = await localSecureStorageImpl.remove('key');
+      expect(() => result, returnsNormally);
     });
 
     test('write', () async {
-      await localSecureStorageImpl.write('key', 'value');
-      verify(() => mockLocalSecureStorage.write('key', 'value')).called(1);
+      when(
+        () => mockLocalSecureStorage.write(any(), any()),
+      ).thenAnswer((_) async => true);
+      final result = await localSecureStorageImpl.write('key', 'value');
+      expect(() => result, returnsNormally);
     });
+  });
+
+  const MethodChannel('plugins.it_nomads.com/flutter_secure_storage')
+      .setMockMethodCallHandler((MethodCall methodCall) async {
+    if (methodCall.method == 'clear') {
+      return true;
+    } else if (methodCall.method == 'containsKey') {
+      return true;
+    } else if (methodCall.method == 'read') {
+      return 'value';
+    } else if (methodCall.method == 'write') {
+      return true;
+    } else if (methodCall.method == 'remove') {
+      return true;
+    } else if (methodCall.method == 'write') {
+      return true;
+    }
+    return null;
   });
 }
