@@ -2,7 +2,7 @@ import 'package:logger/logger.dart';
 
 import 'logger.dart';
 
-class LoggerAppLoggerImpl implements AppLogger {
+class AppLoggerImpl implements AppLogger {
   final logger = Logger();
   var messages = <String>[];
 
