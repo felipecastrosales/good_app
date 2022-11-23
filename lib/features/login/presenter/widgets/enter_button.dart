@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:good_app/app/core/core.dart';
+import 'package:good_app/app/core/ui/colors/app_gradients.dart';
+import 'package:good_app/app/core/ui/styles/app_text_styles.dart';
 
 class EnterButton extends StatelessWidget {
   const EnterButton({Key? key}) : super(key: key);

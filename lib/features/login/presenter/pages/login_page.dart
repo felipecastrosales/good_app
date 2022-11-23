@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:good_app/app/app.dart';
 
-import 'package:good_app/features/login/presenter/widgets/widgets.dart';
+import 'package:good_app/app/core/ui/colors/app_colors.dart';
+import 'package:good_app/features/login/presenter/widgets/custom_text_form_field.dart';
+import 'package:good_app/features/login/presenter/widgets/enter_button.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);

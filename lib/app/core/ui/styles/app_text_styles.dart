@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:good_app/app/core/core.dart';
+
+import 'package:good_app/app/core/ui/colors/app_colors.dart';
 
 class AppTextStyles {
   static const hintText = TextStyle(

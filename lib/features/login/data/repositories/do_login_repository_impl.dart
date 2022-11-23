@@ -1,7 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:good_app/app/core/errors/errors.dart';
-import 'package:good_app/app/core/logger/logger.dart';
-import 'package:good_app/features/login/login.dart';
+
+import 'package:good_app/app/core/errors/failures/failure.dart';
+import 'package:good_app/app/core/logger/app_logger.dart';
+import 'package:good_app/features/login/data/datasources/login_data_source.dart';
+import 'package:good_app/features/login/domain/entities/user.dart';
+import 'package:good_app/features/login/domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
   final LoginDataSource _loginDataSource;

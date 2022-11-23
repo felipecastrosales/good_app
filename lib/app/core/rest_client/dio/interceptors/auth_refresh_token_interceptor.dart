@@ -1,6 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:good_app/app/app.dart';
-import 'package:good_app/data/data.dart';
+import 'package:good_app/app/core/errors/exceptions/expire_token_interceptor.dart';
+
+import 'package:good_app/app/core/logger/app_logger.dart';
+import 'package:good_app/app/core/rest_client/rest_client.dart';
+import 'package:good_app/data/constants/constants_storage.dart';
+import 'package:good_app/data/storage/local_secure_storage.dart';
+import 'package:good_app/data/storage/local_storage.dart';
 
 class AuthRefreshTokenInterceptor extends Interceptor {
   final LocalStorage _localStorage;

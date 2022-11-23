@@ -1,9 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/app/app.dart';
-import 'package:good_app/features/features.dart';
 import 'package:mocktail/mocktail.dart';
+
+import 'package:good_app/app/core/errors/failures/not_found.dart';
+import 'package:good_app/app/core/errors/failures/password_wrong.dart';
+import 'package:good_app/features/login/domain/entities/user.dart';
+import 'package:good_app/features/login/domain/repositories/login_repository.dart';
+import 'package:good_app/features/login/domain/usecases/do_login.dart';
 
 var tUser = User(
   bornDate: faker.date.dateTime(),
