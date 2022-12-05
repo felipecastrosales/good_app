@@ -1,6 +1,6 @@
 import 'package:logger/logger.dart';
 
-import 'logger.dart';
+import 'app_logger.dart';
 
 class AppLoggerImpl implements AppLogger {
   final logger = Logger();

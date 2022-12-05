@@ -1,11 +1,16 @@
 import 'package:dio/dio.dart';
 
-import 'package:good_app/app/app.dart';
+import 'package:good_app/app/core/logger/app_logger.dart';
+import 'package:good_app/app/core/rest_client/rest_client.dart';
 import 'package:good_app/app/core/rest_client/rest_client_exception.dart';
 import 'package:good_app/app/core/rest_client/rest_client_response.dart';
-import 'package:good_app/data/data.dart';
+import 'package:good_app/data/constants/constants_api.dart';
+import 'package:good_app/data/constants/constants_storage.dart';
+import 'package:good_app/data/storage/local_secure_storage.dart';
+import 'package:good_app/data/storage/local_storage.dart';
 
-import 'interceptors/interceptors.dart';
+import 'interceptors/auth_interceptor.dart';
+import 'interceptors/auth_refresh_token_interceptor.dart';
 
 class DioRestClient implements RestClient {
   late final Dio _dio;

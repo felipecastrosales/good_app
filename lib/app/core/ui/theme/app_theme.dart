@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:good_app/app/core/ui/ui.dart';
+import 'package:good_app/app/core/ui/colors/app_colors.dart';
 
 class AppTheme {
   static ThemeData get theme => ThemeData(

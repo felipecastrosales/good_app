@@ -1,11 +1,26 @@
 import 'package:dartz/dartz.dart';
+import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:good_app/app/app.dart';
-import 'package:good_app/features/features.dart';
+import 'package:good_app/app/core/errors/failures/not_found.dart';
+import 'package:good_app/app/core/errors/failures/password_wrong.dart';
+import 'package:good_app/app/core/errors/failures/server.dart';
+import 'package:good_app/features/login/domain/entities/user.dart';
+import 'package:good_app/features/login/domain/repositories/login_repository.dart';
+import 'package:good_app/features/login/domain/usecases/do_login.dart';
 
 import '../../../../fixtures/fixtures.dart';
+
+var tUser = User(
+  bornDate: faker.date.dateTime(),
+  email: email,
+  name: faker.person.name(),
+  imageUrl: faker.image.image(),
+);
+
+var email = faker.internet.email();
+var password = faker.internet.password();
 
 class MockLoginRepository extends Mock implements LoginRepository {}
 

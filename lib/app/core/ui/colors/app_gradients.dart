@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import 'app_list_colors.dart';
 
 class AppGradients {
   static const linear = LinearGradient(

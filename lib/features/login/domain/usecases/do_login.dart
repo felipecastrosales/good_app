@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 
-import 'package:good_app/app/app.dart';
-import 'package:good_app/features/features.dart';
+import 'package:good_app/app/core/errors/failures/failure.dart';
+import 'package:good_app/app/core/usecase/usecase.dart';
+import 'package:good_app/features/login/domain/entities/user.dart';
+import 'package:good_app/features/login/domain/repositories/login_repository.dart';
 
 class LoginParams {
   final String username;

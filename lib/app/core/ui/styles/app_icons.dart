@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:good_app/app/core/core.dart';
 
 class AppIcons {
