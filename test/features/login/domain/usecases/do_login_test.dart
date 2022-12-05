@@ -10,7 +10,7 @@ import 'package:good_app/features/login/domain/entities/user.dart';
 import 'package:good_app/features/login/domain/repositories/login_repository.dart';
 import 'package:good_app/features/login/domain/usecases/do_login.dart';
 
-import '../../../../fixtures/fixtures.dart';
+import '../../../../fixtures/models/user_fixtures.dart';
 
 var tUser = User(
   bornDate: faker.date.dateTime(),

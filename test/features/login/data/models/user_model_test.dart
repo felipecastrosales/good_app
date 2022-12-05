@@ -1,8 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:good_app/features/features.dart';
+import 'package:good_app/features/login/data/models/user_model.dart';
 
-import '../../../../fixtures/fixtures.dart';
+import '../../../../fixtures/models/user_fixtures.dart';
+import '../../../../fixtures/root_bundle.dart';
 
 void main() {
   setUp(() {

@@ -1,6 +1,6 @@
 import 'package:faker/faker.dart';
 
-import 'package:good_app/features/features.dart';
+import 'package:good_app/features/login/data/models/user_model.dart';
 
 class UserFixtures {
   final username = faker.person.name();

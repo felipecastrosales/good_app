@@ -1,8 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/app/app.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../fixtures/fixtures.dart';
+import 'package:good_app/app/core/logger/app_logger.dart';
+import 'package:good_app/app/core/logger/app_logger_impl.dart';
+
+import '../../../fixtures/mocks/mock_app_logger.dart';
 
 void main() async {
   late AppLogger appLoggerImpl;

@@ -4,9 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:good_app/data/data.dart';
+import 'package:good_app/data/storage/flutter_secure_storage/flutter_secure_storage_local_storage_impl.dart';
+import 'package:good_app/data/storage/local_secure_storage.dart';
 
-import '../../../fixtures/fixtures.dart';
+import '../../../fixtures/mocks/mock_local_secure_storage.dart';
 
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();

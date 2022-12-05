@@ -2,10 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:good_app/app/app.dart';
-import 'package:good_app/features/login/data/repositories/repositories.dart';
+import 'package:good_app/app/core/errors/failures/password_wrong.dart';
+import 'package:good_app/features/login/data/repositories/login_repository_impl.dart';
 
-import '../../../../fixtures/fixtures.dart';
+import '../../../../fixtures/mocks/mock_app_logger.dart';
+import '../../../../fixtures/mocks/mock_login_data_source.dart';
+import '../../../../fixtures/models/user_fixtures.dart';
 
 void main() {
   late MockLoginDataSource loginDataSource;

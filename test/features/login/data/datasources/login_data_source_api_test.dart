@@ -1,12 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/app/app.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:good_app/app/core/errors/failures/server.dart';
 import 'package:good_app/app/core/rest_client/rest_client_response.dart';
-import 'package:good_app/features/features.dart';
+import 'package:good_app/features/login/data/datasources/login_data_source_api.dart';
+import 'package:good_app/features/login/data/models/user_model.dart';
 
 import '../../../../app/core/rest_client/mock_rest_client.dart';
-import '../../../../fixtures/fixtures.dart';
+import '../../../../fixtures/mocks/mock_app_logger.dart';
+import '../../../../fixtures/models/user_fixtures.dart';
 
 void main() {
   late MockRestClient restClient;
