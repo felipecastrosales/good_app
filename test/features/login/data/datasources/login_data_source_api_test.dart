@@ -33,7 +33,7 @@ void main() {
   test('Should do login on API', () async {
     when(
       () => restClient.post(
-        any(),
+        baseAuthUrl,
         data: {
           'username': tUsername,
           'password': tPassword,
@@ -73,7 +73,7 @@ void main() {
   test('Should throw exception when API returns error', () async {
     when(
       () => restClient.post(
-        any(),
+        baseAuthUrl,
         data: {
           'username': tUsername,
           'password': tPassword,

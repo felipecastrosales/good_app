@@ -28,7 +28,7 @@ void main() {
   test('Should login', () async {
     when(
       () => loginDataSource.login(
-        username: any(named: 'username'),
+        username: user.username,
         password: any(named: 'password'),
       ),
     ).thenAnswer(
