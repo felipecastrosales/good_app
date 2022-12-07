@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:good_app/data/constants/constants_api.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/failures/server.dart';
@@ -18,6 +19,7 @@ void main() {
   final tUser = UserFixtures();
   final tUsername = tUser.username;
   final tPassword = tUser.password;
+  const baseAuthUrl = ConstantsApi.auth;
 
   setUp(() {
     restClient = MockRestClient();
@@ -57,7 +59,7 @@ void main() {
 
     verify(
       () => restClient.post(
-        any(),
+        baseAuthUrl,
         data: {
           'username': tUsername,
           'password': tPassword,
@@ -97,7 +99,7 @@ void main() {
 
     verify(
       () => restClient.post(
-        any(),
+        baseAuthUrl,
         data: {
           'username': tUsername,
           'password': tPassword,
