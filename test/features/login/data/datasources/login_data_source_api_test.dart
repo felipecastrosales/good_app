@@ -1,4 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:good_app/app/core/logger/app_logger.dart';
+import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:good_app/data/constants/constants_api.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -14,7 +16,8 @@ import '../../../../fixtures/models/user_fixtures.dart';
 void main() {
   late MockRestClient restClient;
   late LoginDataSourceApi loginDataSourceApi;
-  late MockAppLogger log;
+  late MockLogger logger;
+  late AppLogger appLogger;
 
   final tUser = UserFixtures();
   final tUsername = tUser.username;
@@ -23,10 +26,11 @@ void main() {
 
   setUp(() {
     restClient = MockRestClient();
-    log = MockAppLogger();
+    logger = MockLogger();
+    appLogger = AppLoggerImpl(logger: logger);
     loginDataSourceApi = LoginDataSourceApi(
       restClient: restClient,
-      log: log,
+      log: appLogger,
     );
   });
 

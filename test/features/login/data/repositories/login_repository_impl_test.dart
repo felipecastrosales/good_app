@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:good_app/app/core/logger/app_logger.dart';
+import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/failures/password_wrong.dart';
@@ -11,17 +13,19 @@ import '../../../../fixtures/models/user_fixtures.dart';
 
 void main() {
   late MockLoginDataSource loginDataSource;
-  late MockAppLogger logger;
   late LoginRepositoryImpl loginRepositoryImpl;
+  late MockLogger logger;
+  late AppLogger appLogger;
 
   final user = UserFixtures();
 
   setUp(() {
     loginDataSource = MockLoginDataSource();
-    logger = MockAppLogger();
+    logger = MockLogger();
+    appLogger = AppLoggerImpl(logger: logger);
     loginRepositoryImpl = LoginRepositoryImpl(
       loginDataSource: loginDataSource,
-      log: logger,
+      log: appLogger,
     );
   });
 
