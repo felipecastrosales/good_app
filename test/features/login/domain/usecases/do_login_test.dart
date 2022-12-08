@@ -11,12 +11,12 @@ import 'package:good_app/features/login/domain/usecases/do_login.dart';
 
 var tUser = User(
   bornDate: faker.date.dateTime(),
-  email: email,
+  username: username,
   name: faker.person.name(),
   imageUrl: faker.image.image(),
 );
 
-var email = faker.internet.email();
+var username = faker.internet.userName();
 var password = faker.internet.password();
 
 class MockDoLoginRepository extends Mock implements LoginRepository {}
@@ -28,8 +28,8 @@ void main() {
   test('Should login', () async {
     when(
       () => doLoginRepository.login(
-        email: email,
-        password: password,
+        username: any(named: 'username'),
+        password: any(named: 'password'),
       ),
     ).thenAnswer(
       (_) async => Right(tUser),
@@ -37,7 +37,7 @@ void main() {
 
     var result = await doLogin(
       LoginParams(
-        email: email,
+        username: username,
         password: password,
       ),
     );
@@ -47,7 +47,7 @@ void main() {
 
     verify(
       () => doLoginRepository.login(
-        email: email,
+        username: username,
         password: password,
       ),
     ).called(1);
@@ -58,8 +58,8 @@ void main() {
   test('Should get wrong password error when logging in', () async {
     when(
       () => doLoginRepository.login(
-        email: email,
-        password: password,
+        username: any(named: 'username'),
+        password: any(named: 'password'),
       ),
     ).thenAnswer(
       (_) async => Left(
@@ -69,7 +69,7 @@ void main() {
 
     var result = await doLogin(
       LoginParams(
-        email: email,
+        username: username,
         password: password,
       ),
     );
@@ -82,7 +82,7 @@ void main() {
 
     verify(
       () => doLoginRepository.login(
-        email: email,
+        username: username,
         password: password,
       ),
     ).called(1);
@@ -93,8 +93,8 @@ void main() {
   test('Should get not found error when logging in', () async {
     when(
       () => doLoginRepository.login(
-        email: email,
-        password: password,
+        username: any(named: 'username'),
+        password: any(named: 'password'),
       ),
     ).thenAnswer(
       (_) async => Left(
@@ -104,7 +104,7 @@ void main() {
 
     var result = await doLogin(
       LoginParams(
-        email: email,
+        username: username,
         password: password,
       ),
     );
@@ -117,7 +117,7 @@ void main() {
 
     verify(
       () => doLoginRepository.login(
-        email: email,
+        username: username,
         password: password,
       ),
     ).called(1);

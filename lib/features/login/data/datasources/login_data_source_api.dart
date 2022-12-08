@@ -14,7 +14,7 @@ class LoginDataSourceApi implements LoginDataSource {
 
   @override
   Future<UserModel> login({
-    required String email,
+    required String username,
     required String password,
   }) async {
     try {
@@ -22,7 +22,7 @@ class LoginDataSourceApi implements LoginDataSource {
       var response = await _restClient.post(
         baseAuthUrl,
         data: {
-          'email': email,
+          'username': username,
           'password': password,
         },
       );

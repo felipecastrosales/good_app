@@ -8,7 +8,7 @@ class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   final controller = LoginController();
@@ -41,7 +41,7 @@ class LoginPage extends StatelessWidget {
                 CustomTextFormField(
                   hintText: 'Insira seu usuário',
                   prefixIcon: Icons.person_rounded,
-                  controller: _emailController..text,
+                  controller: _usernameController..text,
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (value) {},
                   validator: (value) => null,
@@ -62,7 +62,7 @@ class LoginPage extends StatelessWidget {
                   onTap: () async {
                     var isFormValid =
                         _formKey.currentState?.validate() ?? false;
-                    final username = _emailController.text;
+                    final username = _usernameController.text;
                     final password = _passwordController.text;
                     if (isFormValid) {
                       await controller.login(username, password);
@@ -81,11 +81,11 @@ class LoginPage extends StatelessWidget {
 
 class LoginController {
   // login method with password and email
-  String email = '';
+  String username = '';
   String password = '';
 
-  Future<void> login(String email, String password) async {
-    this.email = email;
+  Future<void> login(String username, String password) async {
+    this.username = username;
     this.password = password;
   }
 }
