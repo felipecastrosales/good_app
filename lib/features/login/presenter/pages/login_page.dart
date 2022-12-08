@@ -80,7 +80,7 @@ class LoginPage extends StatelessWidget {
 }
 
 class LoginController {
-  // login method with password and username
+  // login method with password and email
   String username = '';
   String password = '';
 
