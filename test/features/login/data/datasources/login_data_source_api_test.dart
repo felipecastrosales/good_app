@@ -39,8 +39,8 @@ void main() {
       () => restClient.post(
         baseAuthUrl,
         data: {
-          'username': tUsername,
-          'password': tPassword,
+          'username': any(named: 'username'),
+          'password': any(named: 'password'),
         },
       ),
     ).thenAnswer(
