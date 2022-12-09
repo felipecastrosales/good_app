@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:good_app/app/core/errors/failures/server.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/failures/not_found.dart';
@@ -104,6 +105,41 @@ void main() {
     expect(
       result,
       Left(NotFoundFailure()),
+    );
+
+    verify(
+      () => loginRepository.login(
+        username: username,
+        password: password,
+      ),
+    ).called(1);
+
+    verifyNoMoreInteractions(loginRepository);
+  });
+
+  test('Should get server failure when logging in', () async {
+    when(
+      () => loginRepository.login(
+        username: any(named: 'username'),
+        password: any(named: 'password'),
+      ),
+    ).thenAnswer(
+      (_) async => Left(
+        ServerFailure(),
+      ),
+    );
+
+    var result = await doLogin(
+      LoginParams(
+        username: username,
+        password: password,
+      ),
+    );
+
+    expect(result, isA<Left>());
+    expect(
+      result,
+      Left(ServerFailure()),
     );
 
     verify(

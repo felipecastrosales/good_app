@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/app/core/logger/app_logger.dart';
-import 'package:good_app/app/core/logger/app_logger_impl.dart';
-import 'package:good_app/data/constants/constants_api.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/failures/server.dart';
+import 'package:good_app/app/core/logger/app_logger.dart';
+import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:good_app/app/core/rest_client/rest_client_response.dart';
+import 'package:good_app/data/constants/constants_api.dart';
 import 'package:good_app/features/login/data/datasources/login_data_source_api.dart';
 import 'package:good_app/features/login/data/models/user_model.dart';
 
@@ -39,8 +39,8 @@ void main() {
       () => restClient.post(
         baseAuthUrl,
         data: {
-          'username': any(named: 'username'),
-          'password': any(named: 'password'),
+          'username': tUsername,
+          'password': tPassword,
         },
       ),
     ).thenAnswer(
