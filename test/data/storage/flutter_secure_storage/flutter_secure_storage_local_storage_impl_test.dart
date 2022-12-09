@@ -7,56 +7,61 @@ import 'package:mocktail/mocktail.dart';
 import 'package:good_app/data/storage/flutter_secure_storage/flutter_secure_storage_local_storage_impl.dart';
 import 'package:good_app/data/storage/local_secure_storage.dart';
 
-import '../../../fixtures/mocks/mock_local_secure_storage.dart';
+import '../../../fixtures/mocks/mock_flutter_secure_storage.dart';
 
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
 
-  late LocalSecureStorage localSecureStorageImpl;
-  late MockLocalSecureStorage mockLocalSecureStorage;
+  late LocalSecureStorage localSecureStorage;
+  late MockFlutterSecureStorage mockFlutterSecureStorage;
 
   setUp(() {
-    localSecureStorageImpl = FlutterSecureStorageLocalStorageImpl();
-    mockLocalSecureStorage = MockLocalSecureStorage();
+    mockFlutterSecureStorage = MockFlutterSecureStorage();
+    localSecureStorage = FlutterSecureStorageLocalStorageImpl(
+      instance: mockFlutterSecureStorage,
+    );
   });
 
   group('Should call in FlutterSecureStorageLocalStorageImpl the method', () {
     test('clear', () async {
-      when(() => mockLocalSecureStorage.clear()).thenAnswer((_) async => true);
-      final result = await localSecureStorageImpl.clear();
+      when(() => localSecureStorage.clear()).thenAnswer((_) async => true);
+      final result = await localSecureStorage.clear();
       expect(() => result, returnsNormally);
     });
 
     test('contains', () async {
       when(
-        () => mockLocalSecureStorage.contains(any()),
+        () => localSecureStorage.contains(any(named: 'key')),
       ).thenAnswer((_) async => true);
-      final result = await localSecureStorageImpl.contains('key');
+      final result = await localSecureStorage.contains('key');
       expect(() => result, returnsNormally);
     });
 
     test('read', () async {
       when(
-        () => mockLocalSecureStorage.read(any()),
+        () => localSecureStorage.read(any(named: 'key')),
       ).thenAnswer((_) async => 'value');
-      final result = await localSecureStorageImpl.read('key');
+      final result = await localSecureStorage.read('key');
       expect(() => result, returnsNormally);
     });
 
     test('remove', () async {
       when(
-        () => mockLocalSecureStorage.remove(any()),
+        () => localSecureStorage.remove(any(named: 'key')),
       ).thenAnswer((_) async => true);
-      final result = await localSecureStorageImpl.remove('key');
+      final result = await localSecureStorage.remove('key');
       expect(() => result, returnsNormally);
     });
 
     test('write', () async {
       when(
-        () => mockLocalSecureStorage.write(any(), any()),
+        () => localSecureStorage.write(
+          any(named: 'key'),
+          any(named: 'value'),
+        ),
       ).thenAnswer((_) async => true);
-      final result = await localSecureStorageImpl.write('key', 'value');
+      final result = await localSecureStorage.write('key', 'value');
       expect(() => result, returnsNormally);
     });
   });
