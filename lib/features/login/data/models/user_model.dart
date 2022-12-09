@@ -7,13 +7,13 @@ class UserModel extends User {
     required super.name,
     required super.bornDate,
     required super.imageUrl,
-    required super.email,
+    required super.username,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'email': email,
+      'username': username,
       'imageUrl': imageUrl,
       'bornDate': bornDate.toIso8601String(),
     };
@@ -22,7 +22,7 @@ class UserModel extends User {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       name: map['name'],
-      email: map['email'],
+      username: map['username'],
       imageUrl: map['imageUrl'],
       bornDate: DateTime.parse(map['bornDate']),
     );
@@ -31,7 +31,7 @@ class UserModel extends User {
   factory UserModel.fromFirebase(Map<String, dynamic> map) {
     return UserModel(
       name: map['name'],
-      email: map['email'],
+      username: map['username'],
       imageUrl: map['imageUrl'],
       bornDate: DateTime.parse(map['bornDate']),
     );

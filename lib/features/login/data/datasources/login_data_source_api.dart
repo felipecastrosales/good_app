@@ -22,9 +22,9 @@ class LoginDataSourceApi implements LoginDataSource {
     required String password,
   }) async {
     try {
-      const baseUrl = ConstantsApi.auth;
+      const baseAuthUrl = ConstantsApi.auth;
       var response = await _restClient.post(
-        baseUrl,
+        baseAuthUrl,
         data: {
           'username': username,
           'password': password,

@@ -12,8 +12,10 @@ class MockRestClientException extends Mock implements RestClientException {
 
   @override
   final String? message;
+
   @override
   final int? statusCode;
+
   @override
   final RestClientResponse? response;
 }
