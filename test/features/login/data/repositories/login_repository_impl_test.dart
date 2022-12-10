@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/app/core/logger/app_logger.dart';
-import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/failures/password_wrong.dart';
+import 'package:good_app/app/core/logger/app_logger.dart';
+import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:good_app/features/login/data/repositories/login_repository_impl.dart';
 
 import '../../../../fixtures/mocks/mock_app_logger.dart';
@@ -31,7 +31,7 @@ void main() {
 
   test('Should login', () async {
     when(
-      () => loginDataSource.login(
+      () => loginDataSource.call(
         username: user.username,
         password: any(named: 'password'),
       ),
@@ -39,7 +39,7 @@ void main() {
       (invocation) async => user.tUser,
     );
 
-    var result = await loginRepositoryImpl.login(
+    var result = await loginRepositoryImpl.call(
       username: user.username,
       password: user.password,
     );
@@ -48,7 +48,7 @@ void main() {
     expect(result, Right(user.tUser));
 
     verify(
-      () => loginDataSource.login(
+      () => loginDataSource.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
@@ -59,13 +59,13 @@ void main() {
 
   test('Should error when do login', () async {
     when(
-      () => loginDataSource.login(
+      () => loginDataSource.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
     ).thenThrow(PasswordWrongFailure());
 
-    var result = await loginRepositoryImpl.login(
+    var result = await loginRepositoryImpl.call(
       username: user.username,
       password: user.password,
     );
@@ -74,7 +74,7 @@ void main() {
     expect(result, Left(PasswordWrongFailure()));
 
     verify(
-      () => loginDataSource.login(
+      () => loginDataSource.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),

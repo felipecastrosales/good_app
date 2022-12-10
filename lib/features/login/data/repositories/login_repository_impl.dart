@@ -17,12 +17,12 @@ class LoginRepositoryImpl implements LoginRepository {
         _log = log;
 
   @override
-  Future<Either<Failure, User>> login({
+  Future<Either<Failure, User>> call({
     required String username,
     required String password,
   }) async {
     try {
-      final user = await _loginDataSource.login(
+      final user = await _loginDataSource.call(
         username: username,
         password: password,
       );

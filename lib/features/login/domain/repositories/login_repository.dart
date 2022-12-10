@@ -4,7 +4,7 @@ import 'package:good_app/app/core/errors/failures/failure.dart';
 import 'package:good_app/features/login/domain/entities/user.dart';
 
 abstract class LoginRepository {
-  Future<Either<Failure, User>> login({
+  Future<Either<Failure, User>> call({
     required String username,
     required String password,
   });

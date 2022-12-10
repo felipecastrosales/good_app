@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/app/core/errors/failures/server.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/failures/not_found.dart';
 import 'package:good_app/app/core/errors/failures/password_wrong.dart';
+import 'package:good_app/app/core/errors/failures/server.dart';
 import 'package:good_app/features/login/domain/repositories/login_repository.dart';
 import 'package:good_app/features/login/domain/usecases/do_login.dart';
 
@@ -22,7 +22,7 @@ void main() {
 
   test('Should login', () async {
     when(
-      () => loginRepository.login(
+      () => loginRepository.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
@@ -41,7 +41,7 @@ void main() {
     expect(result, Right(user.tUser));
 
     verify(
-      () => loginRepository.login(
+      () => loginRepository.call(
         username: username,
         password: password,
       ),
@@ -52,7 +52,7 @@ void main() {
 
   test('Should get wrong password error when logging in', () async {
     when(
-      () => loginRepository.login(
+      () => loginRepository.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
@@ -73,7 +73,7 @@ void main() {
     expect(result, Left(PasswordWrongFailure()));
 
     verify(
-      () => loginRepository.login(
+      () => loginRepository.call(
         username: username,
         password: password,
       ),
@@ -84,7 +84,7 @@ void main() {
 
   test('Should get not found error when logging in', () async {
     when(
-      () => loginRepository.login(
+      () => loginRepository.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
@@ -102,13 +102,10 @@ void main() {
     );
 
     expect(result, isA<Left>());
-    expect(
-      result,
-      Left(NotFoundFailure()),
-    );
+    expect(result, Left(NotFoundFailure()));
 
     verify(
-      () => loginRepository.login(
+      () => loginRepository.call(
         username: username,
         password: password,
       ),
@@ -119,7 +116,7 @@ void main() {
 
   test('Should get server failure when logging in', () async {
     when(
-      () => loginRepository.login(
+      () => loginRepository.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
@@ -137,13 +134,10 @@ void main() {
     );
 
     expect(result, isA<Left>());
-    expect(
-      result,
-      Left(ServerFailure()),
-    );
+    expect(result, Left(ServerFailure()));
 
     verify(
-      () => loginRepository.login(
+      () => loginRepository.call(
         username: username,
         password: password,
       ),

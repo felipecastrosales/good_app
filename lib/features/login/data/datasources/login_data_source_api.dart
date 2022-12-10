@@ -17,7 +17,7 @@ class LoginDataSourceApi implements LoginDataSource {
         _log = log;
 
   @override
-  Future<UserModel> login({
+  Future<UserModel> call({
     required String username,
     required String password,
   }) async {

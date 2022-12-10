@@ -38,10 +38,7 @@ void main() {
     when(
       () => restClient.post(
         baseAuthUrl,
-        data: {
-          'username': tUsername,
-          'password': tPassword,
-        },
+        data: any(named: 'data'),
       ),
     ).thenAnswer(
       (invocation) => Future.value(
@@ -53,7 +50,7 @@ void main() {
       ),
     );
 
-    UserModel user = await loginDataSourceApi.login(
+    UserModel user = await loginDataSourceApi.call(
       username: tUsername,
       password: tPassword,
     );
@@ -78,10 +75,7 @@ void main() {
     when(
       () => restClient.post(
         baseAuthUrl,
-        data: {
-          'username': tUsername,
-          'password': tPassword,
-        },
+        data: any(named: 'data'),
       ),
     ).thenAnswer(
       (invocation) => Future.value(
@@ -94,7 +88,7 @@ void main() {
     );
 
     expect(
-      () async => await loginDataSourceApi.login(
+      () async => await loginDataSourceApi.call(
         username: tUsername,
         password: tPassword,
       ),
