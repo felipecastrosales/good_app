@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/app/core/logger/app_logger.dart';
-import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/failures/password_wrong.dart';
+import 'package:good_app/app/core/logger/app_logger.dart';
+import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:good_app/features/login/data/repositories/login_repository_impl.dart';
 
 import '../../../../fixtures/mocks/mock_app_logger.dart';
@@ -18,6 +18,9 @@ void main() {
   late AppLogger appLogger;
 
   final user = UserFixtures();
+  final tUser = user.tUser;
+  final username = user.username;
+  final password = user.password;
 
   setUp(() {
     loginDataSource = MockLoginDataSource();
@@ -31,26 +34,26 @@ void main() {
 
   test('Should login', () async {
     when(
-      () => loginDataSource.login(
-        username: user.username,
+      () => loginDataSource.call(
+        username: any(named: 'username'),
         password: any(named: 'password'),
       ),
     ).thenAnswer(
-      (invocation) async => user.tUser,
+      (invocation) async => tUser,
     );
 
-    var result = await loginRepositoryImpl.login(
-      username: user.username,
-      password: user.password,
+    var result = await loginRepositoryImpl.call(
+      username: username,
+      password: password,
     );
 
     expect(result, isA<Right>());
-    expect(result, Right(user.tUser));
+    expect(result, Right(tUser));
 
     verify(
-      () => loginDataSource.login(
-        username: any(named: 'username'),
-        password: any(named: 'password'),
+      () => loginDataSource.call(
+        username: username,
+        password: password,
       ),
     ).called(1);
 
@@ -59,24 +62,24 @@ void main() {
 
   test('Should error when do login', () async {
     when(
-      () => loginDataSource.login(
+      () => loginDataSource.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
     ).thenThrow(PasswordWrongFailure());
 
-    var result = await loginRepositoryImpl.login(
-      username: user.username,
-      password: user.password,
+    var result = await loginRepositoryImpl.call(
+      username: username,
+      password: password,
     );
 
     expect(result, isA<Left>());
     expect(result, Left(PasswordWrongFailure()));
 
     verify(
-      () => loginDataSource.login(
-        username: any(named: 'username'),
-        password: any(named: 'password'),
+      () => loginDataSource.call(
+        username: username,
+        password: password,
       ),
     ).called(1);
 
