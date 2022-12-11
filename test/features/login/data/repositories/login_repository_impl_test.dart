@@ -18,6 +18,9 @@ void main() {
   late AppLogger appLogger;
 
   final user = UserFixtures();
+  final tUser = user.tUser;
+  final username = user.username;
+  final password = user.password;
 
   setUp(() {
     loginDataSource = MockLoginDataSource();
@@ -32,25 +35,25 @@ void main() {
   test('Should login', () async {
     when(
       () => loginDataSource.call(
-        username: user.username,
+        username: any(named: 'username'),
         password: any(named: 'password'),
       ),
     ).thenAnswer(
-      (invocation) async => user.tUser,
+      (invocation) async => tUser,
     );
 
     var result = await loginRepositoryImpl.call(
-      username: user.username,
-      password: user.password,
+      username: username,
+      password: password,
     );
 
     expect(result, isA<Right>());
-    expect(result, Right(user.tUser));
+    expect(result, Right(tUser));
 
     verify(
       () => loginDataSource.call(
-        username: any(named: 'username'),
-        password: any(named: 'password'),
+        username: username,
+        password: password,
       ),
     ).called(1);
 
@@ -66,8 +69,8 @@ void main() {
     ).thenThrow(PasswordWrongFailure());
 
     var result = await loginRepositoryImpl.call(
-      username: user.username,
-      password: user.password,
+      username: username,
+      password: password,
     );
 
     expect(result, isA<Left>());
@@ -75,8 +78,8 @@ void main() {
 
     verify(
       () => loginDataSource.call(
-        username: any(named: 'username'),
-        password: any(named: 'password'),
+        username: username,
+        password: password,
       ),
     ).called(1);
 

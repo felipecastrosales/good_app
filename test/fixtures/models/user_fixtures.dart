@@ -8,11 +8,21 @@ class UserFixtures {
   final bornDate = faker.date.dateTime();
   final password = faker.internet.password();
 
+  final realUsername = 'johndoe';
+  final realPassword = 'j0hnd0321';
+
   final tUser = UserModel(
     name: faker.person.name(),
     username: faker.internet.userName(),
     imageUrl: faker.image.image(),
     bornDate: faker.date.dateTime(),
+  );
+
+  final tRealUser = UserModel(
+    name: 'John Doe',
+    username: 'j0hnd0321',
+    imageUrl: '',
+    bornDate: DateTime(1985, 2, 5),
   );
 
   final userApi = {

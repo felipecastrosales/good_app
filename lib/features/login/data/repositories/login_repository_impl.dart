@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 
 import 'package:good_app/app/core/errors/failures/failure.dart';
+import 'package:good_app/app/core/errors/failures/server.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/features/login/data/datasources/login_data_source.dart';
 import 'package:good_app/features/login/domain/entities/user.dart';
@@ -31,6 +33,13 @@ class LoginRepositoryImpl implements LoginRepository {
     } on Failure catch (e, s) {
       _log.error('Error on $this', e, s);
       return Left(e);
+    } catch (e, s) {
+      _log.error('Error on $this', e, s);
+      debugPrint('Error on $this: $e');
+      debugPrint('Error on $this: $s');
+      return Left(
+        ServerFailure(),
+      );
     }
   }
 }
