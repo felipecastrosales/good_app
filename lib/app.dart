@@ -10,7 +10,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: AppTexts.projectName,
+      title: AppTexts.appName,
       theme: AppTheme.theme,
       home: LoginPage(),
     );
