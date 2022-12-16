@@ -1,7 +1,10 @@
-import 'package:good_app/features/login/data/models/user_model.dart';
+import 'package:dartz/dartz.dart';
+
+import 'package:good_app/app/core/errors/default/default_error.dart';
+import 'package:good_app/features/login/data/models/auth.dart';
 
 abstract class LoginDataSource {
-  Future<UserModel> call({
+  Future<Either<DefaultError, AuthModel>> call({
     required String username,
     required String password,
   });
