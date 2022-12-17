@@ -3,14 +3,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_app/data/storage/local_secure_storage.dart';
 
 class FlutterSecureStorageLocalStorageImpl implements LocalSecureStorage {
-  // apply dependency injection
-  final FlutterSecureStorage _instance;
   const FlutterSecureStorageLocalStorageImpl({
     required FlutterSecureStorage instance,
   }) : _instance = instance;
 
-  // FlutterSecureStorage get _instance => const FlutterSecureStorage();
-  // const FlutterSecureStorageLocalStorageImpl(
+  final FlutterSecureStorage _instance;
 
   @override
   Future<void> clear() => _instance.deleteAll();

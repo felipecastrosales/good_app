@@ -12,7 +12,7 @@ import 'login_data_source.dart';
 
 class LoginDataSourceApi implements LoginDataSource {
   final RestClient _restClient;
-  // final AuthMapper _authMapper;
+  final AuthMapper _authMapper;
   final AppLogger _log;
 
   LoginDataSourceApi({
@@ -20,7 +20,7 @@ class LoginDataSourceApi implements LoginDataSource {
     required AuthMapper authMapper,
     required AppLogger log,
   })  : _restClient = restClient,
-        // _authMapper = authMapper,
+        _authMapper = authMapper,
         _log = log;
 
   @override
@@ -38,20 +38,14 @@ class LoginDataSourceApi implements LoginDataSource {
       );
 
       // TODO:
-      // final auth = _authMapper.fromApi(response.data);
-      final auth = response.data;
+      // Not works because type is AuthModel and method await for AuthEntity
+      // final auth = _authMapper.toModel(AuthModel.fromJson(response.data));
 
+      // Works, but is correct?
+      // final auth = _authMapper.toEntity(AuthModel.fromJson(response.data));
+
+      final auth = AuthModel.fromJson(response.data);
       return Right(auth);
-      // TODO:
-      // } on ServerFailure catch (e, s) {
-      //   _log.error(e.message, e, s);
-      //   return Left(
-      //     DefaultError.server(
-      //       title: 'ServerFailure',
-      //       message: 'Server error on LoginDataSourceApi',
-      //       cause: e,
-      //     ),
-      //   );
     } catch (e, s) {
       _log.error(e.toString(), e, s);
       return Left(
