@@ -7,12 +7,7 @@ import 'auth_mapper.dart';
 
 @Injectable()
 @Singleton(as: AuthMapper)
-class AuthMapperImpl implements AuthMapper {
-  @override
-  List<AuthEntity> toEntities(List<AuthModel> models) {
-    return models.map(toEntity).toList();
-  }
-
+class AuthMapperImpl extends AuthMapper {
   @override
   AuthEntity toEntity(AuthModel model) {
     return AuthEntity(
@@ -29,10 +24,5 @@ class AuthMapperImpl implements AuthMapper {
       refreshToken: entity.refreshToken,
       expiresIn: entity.expiresIn,
     );
-  }
-
-  @override
-  List<AuthModel> toModels(List<AuthEntity> entities) {
-    return entities.map(toModel).toList();
   }
 }
