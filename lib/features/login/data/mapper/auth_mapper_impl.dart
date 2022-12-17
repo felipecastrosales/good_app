@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
-import 'package:good_app/features/login/data/models/auth.dart';
-import 'package:good_app/features/login/domain/entities/auth.dart';
+import 'package:good_app/features/login/data/models/auth_model.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 
 import 'auth_mapper.dart';
 

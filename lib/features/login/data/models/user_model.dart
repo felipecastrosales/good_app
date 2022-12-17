@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:good_app/features/login/domain/entities/user.dart';
+import 'package:good_app/features/login/domain/entities/user_entity.dart';
 
 class UserModel extends User {
   const UserModel({

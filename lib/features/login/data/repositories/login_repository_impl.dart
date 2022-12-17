@@ -4,7 +4,7 @@ import 'package:good_app/app/core/errors/default/default_error.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/features/login/data/datasources/login_data_source.dart';
 import 'package:good_app/features/login/data/mapper/auth_mapper.dart';
-import 'package:good_app/features/login/domain/entities/auth.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 import 'package:good_app/features/login/domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {

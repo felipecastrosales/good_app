@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'auth.freezed.dart';
-part 'auth.g.dart';
+part 'auth_model.freezed.dart';
+part 'auth_model.g.dart';
 
 @freezed
 class AuthModel with _$AuthModel {

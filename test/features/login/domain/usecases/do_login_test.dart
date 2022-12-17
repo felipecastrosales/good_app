@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/features/login/domain/entities/auth.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/default/default_error.dart';

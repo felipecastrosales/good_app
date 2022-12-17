@@ -6,7 +6,7 @@ import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/app/core/rest_client/rest_client.dart';
 import 'package:good_app/data/constants/constants_api.dart';
 import 'package:good_app/features/login/data/mapper/auth_mapper.dart';
-import 'package:good_app/features/login/data/models/auth.dart';
+import 'package:good_app/features/login/data/models/auth_model.dart';
 
 import 'login_data_source.dart';
 
