@@ -1,7 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:good_app/app/core/errors/default/default_error.dart';
+import 'package:good_app/features/login/data/models/auth.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:good_app/app/core/errors/failures/server.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:good_app/app/core/rest_client/rest_client_response.dart';
@@ -59,6 +61,7 @@ void main() {
       password: tPassword,
     );
 
+    // TODO: View this
     expect(user, isA<UserModel>());
     // expect(user.toMap(), UserFixtures().userApi);
     // expect(user.map((r) => r.toMap()), UserFixtures().userApi);
@@ -93,12 +96,20 @@ void main() {
       ),
     );
 
+    // TODO: View this
     expect(
       () async => await loginDataSourceApi.call(
         username: tUsername,
         password: tPassword,
       ),
-      throwsA(isA<ServerFailure>()),
+      // Future<Either<DefaultError, AuthModel>>> throws
+      throwsA(isA<Future<Either<DefaultError, AuthModel>>>()),
+      //
+      // Expected: throws <Instance of 'Left'>
+      // Actual: <Closure: () => Future<Either<DefaultError, AuthModel>>>
+      // Which: throws <Instance of 'Left'>
+      // throwsA(isA<DefaultError>()),
+      // throwsA(() => isA<Future<Either<DefaultError, AuthModel>>>()),
     );
 
     verify(
