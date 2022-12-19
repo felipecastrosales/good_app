@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/features/login/data/models/auth_model.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/failures/password_wrong.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/app/core/logger/app_logger_impl.dart';
+import 'package:good_app/features/login/data/models/auth_model.dart';
 import 'package:good_app/features/login/data/repositories/login_repository_impl.dart';
 
 import '../../../../fixtures/mocks/mock_app_logger.dart';

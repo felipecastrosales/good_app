@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/app/core/errors/default/default_error.dart';
-import 'package:good_app/features/login/data/models/auth.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:good_app/app/core/errors/default/default_error.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:good_app/app/core/rest_client/rest_client_response.dart';
 import 'package:good_app/data/constants/constants_api.dart';
 import 'package:good_app/features/login/data/datasources/login_data_source_api.dart';
+import 'package:good_app/features/login/data/models/auth_model.dart';
 import 'package:good_app/features/login/data/models/user_model.dart';
 
 import '../../../../app/core/rest_client/mock_rest_client.dart';

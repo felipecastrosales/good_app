@@ -12,7 +12,6 @@ import 'login_data_source.dart';
 
 class LoginDataSourceApi implements LoginDataSource {
   final RestClient _restClient;
-  final AuthMapper _authMapper;
   final AppLogger _log;
 
   LoginDataSourceApi({
@@ -20,7 +19,6 @@ class LoginDataSourceApi implements LoginDataSource {
     required AuthMapper authMapper,
     required AppLogger log,
   })  : _restClient = restClient,
-        _authMapper = authMapper,
         _log = log;
 
   @override
@@ -36,14 +34,6 @@ class LoginDataSourceApi implements LoginDataSource {
           'password': password,
         },
       );
-
-      // TODO:
-      // Not works because type is AuthModel and method await for AuthEntity
-      // final auth = _authMapper.toModel(AuthModel.fromJson(response.data));
-
-      // Works, but is correct?
-      // final auth = _authMapper.toEntity(AuthModel.fromJson(response.data));
-
       final auth = AuthModel.fromJson(response.data);
       return Right(auth);
     } catch (e, s) {
