@@ -9,7 +9,6 @@ import 'package:good_app/app/core/rest_client/rest_client_response.dart';
 import 'package:good_app/data/constants/constants_api.dart';
 import 'package:good_app/features/login/data/datasources/login_data_source_api.dart';
 import 'package:good_app/features/login/data/models/auth_model.dart';
-import 'package:good_app/features/login/data/models/user_model.dart';
 
 import '../../../../app/core/rest_client/mock_rest_client.dart';
 import '../../../../fixtures/mocks/mock_app_logger.dart';
@@ -62,7 +61,7 @@ void main() {
     );
 
     // TODO: View this
-    expect(user, isA<UserModel>());
+    expect(user, isA<AuthModel>());
     // expect(user.toMap(), UserFixtures().userApi);
     // expect(user.map((r) => r.toMap()), UserFixtures().userApi);
     // expect(user.map((r) => r.toMap()), UserFixtures().userApi);

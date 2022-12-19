@@ -5,7 +5,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:good_app/app/core/errors/failures/password_wrong.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/app/core/logger/app_logger_impl.dart';
-import 'package:good_app/features/login/data/models/auth_model.dart';
 import 'package:good_app/features/login/data/repositories/login_repository_impl.dart';
 
 import '../../../../fixtures/mocks/mock_app_logger.dart';
@@ -24,6 +23,8 @@ void main() {
   final tUser = user.tUser;
   final username = user.username;
   final password = user.password;
+  final tAuthModel = user.tAuthModel;
+  // final tAuthEntity = user.tAuthEntity;
 
   setUp(() {
     loginDataSource = MockLoginDataSource();
@@ -44,17 +45,8 @@ void main() {
         password: any(named: 'password'),
       ),
     ).thenAnswer(
-      // TODO: Fix this
-      // (invocation) async => tUser,
-      // (invocation) async => user.tUserApi,
-      // (invocation) async => user.tUserApi,
-      (invocation) async => const Right(
-        AuthModel(
-          accessToken: '',
-          refreshToken: '',
-          expiresIn: 0,
-        ),
-      ),
+      // (invocation) async => Right(tAuthEntity),
+      (invocation) async => Right(tAuthModel),
     );
 
     var result = await loginRepositoryImpl.call(
@@ -62,7 +54,6 @@ void main() {
       password: password,
     );
 
-    // TODO: View this
     expect(result, isA<Right>());
     expect(result, Right(tUser));
 

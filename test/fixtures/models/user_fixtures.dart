@@ -1,6 +1,8 @@
 import 'package:faker/faker.dart';
 
+import 'package:good_app/features/login/data/models/auth_model.dart';
 import 'package:good_app/features/login/data/models/user_model.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 
 class UserFixtures {
   final username = faker.internet.userName();
@@ -37,5 +39,17 @@ class UserFixtures {
     bornDate: DateTime(2003, 12, 26),
     imageUrl: 'https://github.com/felipecastrosales.png',
     username: 'felipecastrosales',
+  );
+
+  var tAuthModel = AuthModel(
+    accessToken: faker.guid.guid(),
+    refreshToken: faker.guid.guid(),
+    expiresIn: faker.randomGenerator.integer(1000),
+  );
+
+  var tAuthEntity = AuthEntity(
+    accessToken: faker.guid.guid(),
+    refreshToken: faker.guid.guid(),
+    expiresIn: faker.randomGenerator.integer(1000),
   );
 }
