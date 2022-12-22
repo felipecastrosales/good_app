@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:good_app/app/core/errors/failures/password_wrong.dart';
+import 'package:good_app/app/core/errors/default/default_error.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/app/core/logger/app_logger_impl.dart';
 import 'package:good_app/features/login/data/repositories/login_repository_impl.dart';
@@ -67,13 +67,13 @@ void main() {
     verifyNoMoreInteractions(loginDataSource);
   });
 
-  test('Should error when do login', () async {
+  test('Should throw error when do login', () async {
     when(
       () => loginDataSource.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
-    ).thenThrow(PasswordWrongFailure());
+    ).thenThrow(const Left(DefaultError.unknown()));
 
     var result = await loginRepositoryImpl.call(
       username: username,
@@ -81,7 +81,7 @@ void main() {
     );
 
     expect(result, isA<Left>());
-    expect(result, Left(PasswordWrongFailure()));
+    expect(result, const Left(DefaultError.unknown()));
 
     verify(
       () => loginDataSource.call(

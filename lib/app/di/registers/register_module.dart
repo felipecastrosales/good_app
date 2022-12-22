@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 
 @module
 abstract class RegisterModule {
-  // TODO: View this
   @injectable
   FlutterSecureStorageLocalStorageImpl
       get flutterSecureStorageLocalStorageImpl =>

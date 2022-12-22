@@ -1,7 +1,9 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:injectable/injectable.dart';
 
 import 'package:good_app/data/storage/local_secure_storage.dart';
 
+@Injectable(as: LocalSecureStorage)
 class FlutterSecureStorageLocalStorageImpl implements LocalSecureStorage {
   const FlutterSecureStorageLocalStorageImpl({
     required FlutterSecureStorage instance,
