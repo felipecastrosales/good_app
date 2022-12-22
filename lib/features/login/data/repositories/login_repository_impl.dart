@@ -6,12 +6,10 @@ import 'package:good_app/features/login/data/datasources/login_data_source.dart'
 import 'package:good_app/features/login/data/mapper/auth_mapper.dart';
 import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 import 'package:good_app/features/login/domain/repositories/login_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: LoginRepository)
 class LoginRepositoryImpl implements LoginRepository {
-  final LoginDataSource _loginDataSource;
-  final AuthMapper _authMapper;
-  final AppLogger _log;
-
   LoginRepositoryImpl({
     required LoginDataSource loginDataSource,
     required AuthMapper authMapper,
@@ -19,6 +17,10 @@ class LoginRepositoryImpl implements LoginRepository {
   })  : _loginDataSource = loginDataSource,
         _authMapper = authMapper,
         _log = log;
+
+  final LoginDataSource _loginDataSource;
+  final AuthMapper _authMapper;
+  final AppLogger _log;
 
   @override
   Future<Either<DefaultError, AuthEntity>> call({

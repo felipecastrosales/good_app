@@ -11,3 +11,4 @@ analyzer:
 
 linter:
   rules:
+    - sort_constructors_first

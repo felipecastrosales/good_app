@@ -11,15 +11,15 @@ import 'package:good_app/features/login/data/models/auth_model.dart';
 import 'login_data_source.dart';
 
 class LoginDataSourceApi implements LoginDataSource {
-  final RestClient _restClient;
-  final AppLogger _log;
-
   LoginDataSourceApi({
     required RestClient restClient,
     required AuthMapper authMapper,
     required AppLogger log,
   })  : _restClient = restClient,
         _log = log;
+
+  final RestClient _restClient;
+  final AppLogger _log;
 
   @override
   Future<Either<DefaultError, AuthModel>> call({
