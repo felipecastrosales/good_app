@@ -5,7 +5,6 @@ import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 
 import 'auth_mapper.dart';
 
-@Injectable()
 @Singleton(as: AuthMapper)
 class AuthMapperImpl extends AuthMapper {
   @override
