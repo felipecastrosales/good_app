@@ -23,8 +23,8 @@ void main() {
   late AppLogger appLogger;
 
   final tUser = UserFixtures();
-  final tUsername = tUser.username;
-  final tPassword = tUser.password;
+  final tUsername = tUser.realUsername;
+  final tPassword = tUser.realPassword;
   const baseAuthUrl = ConstantsApi.auth;
 
   setUp(() {
@@ -48,7 +48,7 @@ void main() {
     ).thenAnswer(
       (invocation) => Future.value(
         RestClientResponse(
-          data: UserFixtures().userApi,
+          data: any(named: 'data'),
           statusCode: 200,
           statusMessage: 'OK',
         ),

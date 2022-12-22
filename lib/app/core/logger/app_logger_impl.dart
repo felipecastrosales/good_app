@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
 import 'app_logger.dart';
 
+@Injectable(as: AppLogger)
 class AppLoggerImpl implements AppLogger {
   AppLoggerImpl({
     required Logger logger,
