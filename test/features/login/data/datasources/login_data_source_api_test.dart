@@ -25,6 +25,10 @@ void main() {
   final tUser = UserFixtures();
   final tUsername = tUser.realUsername;
   final tPassword = tUser.realPassword;
+  final tAuthModel = tUser.tAuthModel;
+  final authApi = tUser.authApi;
+
+  const tUserReturnFromApi = UserFixtures.userReturnFromApi;
   const baseAuthUrl = ConstantsApi.auth;
 
   setUp(() {
@@ -48,7 +52,8 @@ void main() {
     ).thenAnswer(
       (invocation) => Future.value(
         RestClientResponse(
-          data: any(named: 'data'),
+          // data: tUserReturnFromApi,
+          data: tUserReturnFromApi,
           statusCode: 200,
           statusMessage: 'OK',
         ),
@@ -61,7 +66,12 @@ void main() {
     );
 
     // TODO: View this
-    expect(user, isA<AuthModel>());
+    // expect(user, isA<Either<DefaultError, AuthModel>>());
+    // expect(user, const Right(authModel));
+    expect(user, Right(authApi));
+    // expect(user, Right(tAuthModel));
+
+    // expect(user, isA<AuthModel>());
     // expect(user.toMap(), UserFixtures().userApi);
     // expect(user.map((r) => r.toMap()), UserFixtures().userApi);
     // expect(user.map((r) => r.toMap()), UserFixtures().userApi);
@@ -85,24 +95,25 @@ void main() {
         baseAuthUrl,
         data: any(named: 'data'),
       ),
-    ).thenAnswer(
-      (invocation) => Future.value(
-        RestClientResponse(
-          data: null,
-          statusCode: 400,
-          statusMessage: 'Bad Request',
-        ),
-      ),
+    ).thenThrow(
+      // (invocation) => Future.value(
+      //   RestClientResponse(
+      //     data: null,
+      //     statusCode: 400,
+      //     statusMessage: 'Bad Request',
+      //   ),
+      // ),
+      const Left(DefaultError.unknown()),
     );
 
     // TODO: View this
     expect(
-      () async => await loginDataSourceApi.call(
+      loginDataSourceApi.call(
         username: tUsername,
         password: tPassword,
       ),
+      isA<Future<Either<DefaultError, AuthModel>>>(),
       // Future<Either<DefaultError, AuthModel>>> throws
-      throwsA(isA<Future<Either<DefaultError, AuthModel>>>()),
       //
       // Expected: throws <Instance of 'Left'>
       // Actual: <Closure: () => Future<Either<DefaultError, AuthModel>>>

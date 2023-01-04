@@ -23,4 +23,16 @@ class UserFixtures {
     refreshToken: faker.guid.guid(),
     expiresIn: faker.randomGenerator.integer(1000),
   );
+
+  static const tAccessToken = '012345678910';
+  static const tRefreshToken = '109876543210';
+  static const tExpiresIn = 10000;
+
+  static const userReturnFromApi = {
+    'access': tAccessToken,
+    'refresh': tRefreshToken,
+    'expireIn': tExpiresIn,
+  };
+
+  final authApi = AuthModel.fromJson(userReturnFromApi);
 }
