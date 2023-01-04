@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/default/default_error.dart';
@@ -19,11 +20,10 @@ void main() {
   late AppLogger appLogger;
   late MockAuthMapper authMapper;
 
-  final user = UserFixtures();
+  const username = UserFixtures.realUsername;
+  const password = UserFixtures.realPassword;
+  final tAuthModel = UserFixtures().tAuthModel;
   // final tUser = user.tUser;
-  final username = user.username;
-  final password = user.password;
-  final tAuthModel = user.tAuthModel;
   // final tAuthEntity = user.tAuthEntity;
 
   setUp(() {
@@ -46,16 +46,31 @@ void main() {
       ),
     ).thenAnswer(
       // (invocation) async => Right(tAuthEntity),
-      (invocation) async => Right(tAuthModel),
+      (invocation) async => Right(
+        tAuthModel,
+      ),
     );
+
+    final tAuthModelToEntity = authMapper.toEntity(tAuthModel);
 
     var result = await loginRepositoryImpl.call(
       username: username,
       password: password,
     );
 
-    expect(result, isA<Right>());
+    expect(tAuthModelToEntity, isA<AuthEntity>());
+
+    // expect(result, isA<Right>());
+    expect(result, isA<Right<DefaultError, AuthEntity>>());
     // expect(result, Right(tUser));
+    //  Right(_authMapper.toEntity(model)),
+
+    final resultFold = result.fold(
+      (error) => error,
+      (model) => result,
+    );
+
+    expect(resultFold, isA<Right<DefaultError, AuthEntity>>());
 
     verify(
       () => loginDataSource.call(
@@ -73,15 +88,22 @@ void main() {
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
-    ).thenThrow(const Left(DefaultError.unknown()));
+    ).thenThrow(
+      const Left(
+        DefaultError.unknown(),
+      ),
+    );
 
     var result = await loginRepositoryImpl.call(
       username: username,
       password: password,
     );
 
-    expect(result, isA<Left>());
-    expect(result, const Left(DefaultError.unknown()));
+    expect(
+      result,
+      // isA<Future<Either<DefaultError, AuthModel>>>(),
+      isA<Left>(),
+    );
 
     verify(
       () => loginDataSource.call(

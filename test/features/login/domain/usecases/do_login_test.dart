@@ -15,9 +15,11 @@ void main() {
   LoginRepository loginRepository = MockLoginRepository();
   DoLogin doLogin = DoLogin(repository: loginRepository);
 
-  final user = UserFixtures();
-  final realUsername = user.realUsername;
-  final realPassword = user.realPassword;
+  const realUsername = UserFixtures.realUsername;
+  const realPassword = UserFixtures.realPassword;
+  const tAccessToken = UserFixtures.tAccessToken;
+  const tRefreshToken = UserFixtures.tRefreshToken;
+  const tExpiresIn = UserFixtures.tExpiresIn;
 
   test('Should login', () async {
     when(
@@ -26,12 +28,11 @@ void main() {
         password: any(named: 'password'),
       ),
     ).thenAnswer(
-      // TODO: View this
       (_) async => const Right(
         AuthEntity(
-          accessToken: '',
-          refreshToken: '',
-          expiresIn: 0,
+          accessToken: tAccessToken,
+          refreshToken: tRefreshToken,
+          expiresIn: tExpiresIn,
         ),
       ),
     );
@@ -43,9 +44,21 @@ void main() {
       ),
     );
 
-    expect(result, isA<Right>());
-    // TODO: Fix this
-    // expect(result, Right(user.tUser));
+    expect(
+      result,
+      isA<Right>(),
+    );
+
+    expect(
+      result,
+      const Right(
+        AuthEntity(
+          accessToken: tAccessToken,
+          refreshToken: tRefreshToken,
+          expiresIn: tExpiresIn,
+        ),
+      ),
+    );
 
     verify(
       () => loginRepository.call(
@@ -63,6 +76,7 @@ void main() {
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
+      // TODO: Fix this
     ).thenAnswer(
       (_) async => const Left(
         DefaultError.passwordWrong(),

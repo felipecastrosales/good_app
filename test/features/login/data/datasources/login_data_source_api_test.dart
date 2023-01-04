@@ -22,11 +22,10 @@ void main() {
   late MockAuthMapper authMapper;
   late AppLogger appLogger;
 
-  final tUser = UserFixtures();
-  final tUsername = tUser.realUsername;
-  final tPassword = tUser.realPassword;
-  final tAuthModel = tUser.tAuthModel;
-  final authApi = tUser.authApi;
+  const tUsername = UserFixtures.realUsername;
+  const tPassword = UserFixtures.realPassword;
+  final tAuthModel = UserFixtures().tAuthModel;
+  final authApi = UserFixtures().authApi;
 
   const tUserReturnFromApi = UserFixtures.userReturnFromApi;
   const baseAuthUrl = ConstantsApi.auth;
