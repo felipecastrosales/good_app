@@ -13,14 +13,6 @@ import 'interceptors/auth_interceptor.dart';
 import 'interceptors/auth_refresh_token_interceptor.dart';
 
 class DioRestClient implements RestClient {
-  late final Dio _dio;
-
-  final _defaultOptions = BaseOptions(
-    baseUrl: ConstantsApi.baseUrl,
-    connectTimeout: 10000,
-    receiveTimeout: 10000,
-  );
-
   DioRestClient({
     required LocalStorage localStorage,
     required LocalSecureStorage localSecureStorage,
@@ -43,6 +35,14 @@ class DioRestClient implements RestClient {
     ]);
   }
 
+  late final Dio _dio;
+
+  final _defaultOptions = BaseOptions(
+    baseUrl: ConstantsApi.baseUrl,
+    connectTimeout: 10000,
+    receiveTimeout: 10000,
+  );
+
   @override
   RestClient auth() {
     _defaultOptions.extra[ConstantsStorage.authRequiredKey] = true;
@@ -50,7 +50,7 @@ class DioRestClient implements RestClient {
   }
 
   @override
-  RestClient unauth() {
+  RestClient unAuth() {
     _defaultOptions.extra[ConstantsStorage.authRequiredKey] = false;
     return this;
   }

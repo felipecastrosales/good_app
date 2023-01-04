@@ -2,7 +2,7 @@ import 'rest_client_response.dart';
 
 abstract class RestClient {
   RestClient auth();
-  RestClient unauth();
+  RestClient unAuth();
 
   Future<RestClientResponse<T>> post<T>(
     String path, {

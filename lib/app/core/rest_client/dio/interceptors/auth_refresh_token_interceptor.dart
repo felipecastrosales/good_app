@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:good_app/app/core/errors/exceptions/expire_token_interceptor.dart';
 
+import 'package:good_app/app/core/errors/exceptions/expire_token_interceptor.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/app/core/rest_client/rest_client.dart';
 import 'package:good_app/data/constants/constants_storage.dart';
@@ -8,11 +8,6 @@ import 'package:good_app/data/storage/local_secure_storage.dart';
 import 'package:good_app/data/storage/local_storage.dart';
 
 class AuthRefreshTokenInterceptor extends Interceptor {
-  final LocalStorage _localStorage;
-  final LocalSecureStorage _localSecureStorage;
-  final RestClient _restClient;
-  final AppLogger _log;
-
   AuthRefreshTokenInterceptor({
     required LocalStorage localStorage,
     required LocalSecureStorage localSecureStorage,
@@ -22,6 +17,11 @@ class AuthRefreshTokenInterceptor extends Interceptor {
         _localSecureStorage = localSecureStorage,
         _restClient = restClient,
         _log = log;
+
+  final LocalStorage _localStorage;
+  final LocalSecureStorage _localSecureStorage;
+  final RestClient _restClient;
+  final AppLogger _log;
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {

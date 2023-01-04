@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
+
 import 'package:good_app/data/constants/constants_storage.dart';
 import 'package:good_app/data/storage/local_storage.dart';
 
 class AuthInterceptor extends Interceptor {
-  final LocalStorage _localStorage;
-
   AuthInterceptor({
     required LocalStorage localStorage,
   }) : _localStorage = localStorage;
+
+  final LocalStorage _localStorage;
 
   @override
   Future<void> onRequest(

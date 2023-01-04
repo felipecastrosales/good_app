@@ -11,7 +11,7 @@ class RestClientException implements Exception {
   String? message;
   int? statusCode;
   dynamic error;
-  RestClientResponse response;
+  RestClientResponse? response;
 
   @override
   String toString() {

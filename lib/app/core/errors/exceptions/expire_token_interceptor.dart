@@ -1,4 +1,4 @@
 class ExpireTokenException implements Exception {
-  final String message;
   ExpireTokenException(this.message);
+  final String message;
 }

@@ -1,3 +1,7 @@
+# Generated files 
+*.freezed.dart
+*.g.dart
+
 # Ignore for project
 coverage
 
