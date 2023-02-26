@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:good_app/app/core/errors/default/default_error.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/app/core/logger/app_logger_impl.dart';
+import 'package:good_app/features/login/data/models/auth_model.dart';
 import 'package:good_app/features/login/data/repositories/login_repository_impl.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 
 import '../../../../fixtures/mocks/mock_app_logger.dart';
 import '../../../../fixtures/mocks/mock_auth_mapper.dart';
@@ -19,17 +20,11 @@ void main() {
   late MockLogger logger;
   late AppLogger appLogger;
   late MockAuthMapper authMapper;
-  // final MockLoginDataSource loginDataSource = MockLoginDataSource();
-  // final LoginRepositoryImpl loginRepositoryImpl = LoginRepositoryImpl();
-  // final MockLogger logger = MockLogger();
-  // final AppLogger appLogger = MockAppLogger();
-  // final MockAuthMapper authMapper = MockAuthMapper();
 
   const username = UserFixtures.realUsername;
   const password = UserFixtures.realPassword;
+
   final tAuthModel = UserFixtures().tAuthModel;
-  // final tUser = user.tUser;
-  // final tAuthEntity = user.tAuthEntity;
 
   setUp(() {
     loginDataSource = MockLoginDataSource();
@@ -50,7 +45,6 @@ void main() {
         password: password,
       ),
     ).thenAnswer(
-      // (invocation) async => Right(tAuthEntity),
       (invocation) => Future.value(
         Right(
           tAuthModel,
@@ -58,21 +52,24 @@ void main() {
       ),
     );
 
-    final tAuthModelToEntity = authMapper.toEntity(tAuthModel);
+    when(
+      () => authMapper.toEntity(tAuthModel),
+    ).thenAnswer(
+      (invocation) => AuthEntity(
+        accessToken: tAuthModel.accessToken,
+        refreshToken: tAuthModel.refreshToken,
+        expiresIn: tAuthModel.expiresIn,
+      ),
+    );
 
     var result = await loginRepositoryImpl.call(
       username: username,
       password: password,
     );
 
-    // when
+    expect(tAuthModel, isA<AuthModel>());
 
-    expect(tAuthModelToEntity, isA<AuthEntity>());
-
-    // expect(result, isA<Right>());
     expect(result, isA<Right<DefaultError, AuthEntity>>());
-    // expect(result, Right(tUser));
-    //  Right(_authMapper.toEntity(model)),
 
     final resultFold = result.fold(
       (error) => error,
@@ -94,12 +91,14 @@ void main() {
   test('Should throw error when do login', () async {
     when(
       () => loginDataSource.call(
-        username: any(named: 'username'),
-        password: any(named: 'password'),
+        username: username,
+        password: password,
       ),
-    ).thenThrow(
-      const Left(
-        DefaultError.unknown(),
+    ).thenAnswer(
+      (invocation) => Future.value(
+        const Left(
+          DefaultError.unknown(),
+        ),
       ),
     );
 
@@ -108,11 +107,14 @@ void main() {
       password: password,
     );
 
-    expect(
-      result,
-      // isA<Future<Either<DefaultError, AuthModel>>>(),
-      isA<Left>(),
+    expect(result, isA<Left<DefaultError, AuthEntity>>());
+
+    final resultFold = result.fold(
+      (error) => error,
+      (model) => result,
     );
+
+    expect(resultFold, isA<DefaultError>());
 
     verify(
       () => loginDataSource.call(
