@@ -76,7 +76,6 @@ void main() {
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
-      // TODO: Fix this
     ).thenAnswer(
       (_) async => const Left(
         DefaultError.passwordWrong(),

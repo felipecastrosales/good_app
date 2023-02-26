@@ -24,7 +24,6 @@ void main() {
 
   const tUsername = UserFixtures.realUsername;
   const tPassword = UserFixtures.realPassword;
-  final tAuthModel = UserFixtures().tAuthModel;
   final authApi = UserFixtures().authApi;
 
   const tUserReturnFromApi = UserFixtures.userReturnFromApi;
@@ -64,7 +63,6 @@ void main() {
       password: tPassword,
     );
 
-    // TODO: View this
     // expect(user, isA<Either<DefaultError, AuthModel>>());
     // expect(user, const Right(authModel));
     expect(user, Right(authApi));
@@ -105,7 +103,6 @@ void main() {
       const Left(DefaultError.unknown()),
     );
 
-    // TODO: View this
     expect(
       loginDataSourceApi.call(
         username: tUsername,
