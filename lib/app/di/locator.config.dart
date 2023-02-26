@@ -24,12 +24,12 @@ import 'package:good_app/features/login/data/repositories/login_repository_impl.
 import 'package:good_app/features/login/domain/repositories/login_repository.dart'
     as _i12;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:logger/logger.dart' as _i5;
+import 'package:logger/logger.dart'
+    as _i5; // ignore_for_file: unnecessary_lambdas
 
-/// ignore_for_file: unnecessary_lambdas
-/// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
-  /// initializes the registration of main-scope dependencies inside of [GetIt]
+  // initializes the registration of main-scope dependencies inside of GetIt
   _i1.GetIt init({
     String? environment,
     _i2.EnvironmentFilter? environmentFilter,
