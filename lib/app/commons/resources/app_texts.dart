@@ -1,3 +1,3 @@
 class AppTexts {
-  static const projectName = 'Good App';
+  static const appName = 'Good App';
 }
