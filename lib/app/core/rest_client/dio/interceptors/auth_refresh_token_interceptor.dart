@@ -8,11 +8,6 @@ import 'package:good_app/data/storage/local_secure_storage.dart';
 import 'package:good_app/data/storage/local_storage.dart';
 
 class AuthRefreshTokenInterceptor extends Interceptor {
-  final LocalStorage _localStorage;
-  final LocalSecureStorage _localSecureStorage;
-  final RestClient _restClient;
-  final AppLogger _log;
-
   AuthRefreshTokenInterceptor({
     required LocalStorage localStorage,
     required LocalSecureStorage localSecureStorage,
@@ -22,6 +17,11 @@ class AuthRefreshTokenInterceptor extends Interceptor {
         _localSecureStorage = localSecureStorage,
         _restClient = restClient,
         _log = log;
+
+  final LocalStorage _localStorage;
+  final LocalSecureStorage _localSecureStorage;
+  final RestClient _restClient;
+  final AppLogger _log;
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {

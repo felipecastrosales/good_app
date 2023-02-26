@@ -5,15 +5,6 @@ import 'package:good_app/app/core/ui/styles/app_borders.dart';
 import 'package:good_app/app/core/ui/styles/app_text_styles.dart';
 
 class CustomTextFormField extends StatefulWidget {
-  final String hintText;
-  final IconData prefixIcon;
-  final Widget? suffixIcon;
-  final bool isSecret;
-  final TextEditingController controller;
-  final FormFieldValidator<String>? validator;
-  final Function(String)? onChanged;
-  final TextInputType? keyboardType;
-
   const CustomTextFormField({
     Key? key,
     required this.hintText,
@@ -25,6 +16,15 @@ class CustomTextFormField extends StatefulWidget {
     required this.onChanged,
     this.keyboardType,
   }) : super(key: key);
+
+  final String hintText;
+  final IconData prefixIcon;
+  final Widget? suffixIcon;
+  final bool isSecret;
+  final TextEditingController controller;
+  final FormFieldValidator<String>? validator;
+  final Function(String)? onChanged;
+  final TextInputType? keyboardType;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();

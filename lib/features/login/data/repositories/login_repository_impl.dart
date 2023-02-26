@@ -1,45 +1,40 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 
-import 'package:good_app/app/core/errors/failures/failure.dart';
-import 'package:good_app/app/core/errors/failures/server.dart';
+import 'package:good_app/app/core/errors/default/default_error.dart';
 import 'package:good_app/app/core/logger/app_logger.dart';
 import 'package:good_app/features/login/data/datasources/login_data_source.dart';
-import 'package:good_app/features/login/domain/entities/user.dart';
+import 'package:good_app/features/login/data/mapper/auth_mapper.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 import 'package:good_app/features/login/domain/repositories/login_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: LoginRepository)
 class LoginRepositoryImpl implements LoginRepository {
-  final LoginDataSource _loginDataSource;
-  final AppLogger _log;
-
   LoginRepositoryImpl({
     required LoginDataSource loginDataSource,
+    required AuthMapper authMapper,
     required AppLogger log,
   })  : _loginDataSource = loginDataSource,
+        _authMapper = authMapper,
         _log = log;
 
+  final LoginDataSource _loginDataSource;
+  final AuthMapper _authMapper;
+  final AppLogger _log;
+
   @override
-  Future<Either<Failure, User>> call({
+  Future<Either<DefaultError, AuthEntity>> call({
     required String username,
     required String password,
   }) async {
-    try {
-      final user = await _loginDataSource.call(
-        username: username,
-        password: password,
-      );
-      _log.info('User logged in: $user');
-      return Right(user);
-    } on Failure catch (e, s) {
-      _log.error('Error on $this', e, s);
-      return Left(e);
-    } catch (e, s) {
-      _log.error('Error on $this', e, s);
-      debugPrint('Error on $this: $e');
-      debugPrint('Error on $this: $s');
-      return Left(
-        ServerFailure(),
-      );
-    }
+    final result = await _loginDataSource.call(
+      username: username,
+      password: password,
+    );
+    _log.debug('LoginRepositoryImpl result: $result');
+    return result.fold(
+      (error) => Left(error),
+      (model) => Right(_authMapper.toEntity(model)),
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:faker/faker.dart';
 
-import 'package:good_app/features/login/data/models/user_model.dart';
+import 'package:good_app/features/login/data/models/auth_model.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 
 class UserFixtures {
   final username = faker.internet.userName();
@@ -8,34 +9,29 @@ class UserFixtures {
   final bornDate = faker.date.dateTime();
   final password = faker.internet.password();
 
-  final realUsername = 'johndoe';
-  final realPassword = 'j0hnd0321';
+  static const realUsername = 'johndoe';
+  static const realPassword = 'j0hnd0321';
+  static const tAccessToken = '012345678910';
+  static const tRefreshToken = '109876543210';
+  static const tExpiresIn = 10000;
 
-  final tUser = UserModel(
-    name: faker.person.name(),
-    username: faker.internet.userName(),
-    imageUrl: faker.image.image(),
-    bornDate: faker.date.dateTime(),
-  );
-
-  final tRealUser = UserModel(
-    name: 'John Doe',
-    username: 'j0hnd0321',
-    imageUrl: '',
-    bornDate: DateTime(1985, 2, 5),
-  );
-
-  final userApi = {
-    'name': 'felipecastrosales',
-    'bornDate': DateTime(2003, 12, 26).toIso8601String(),
-    'imageUrl': 'https://github.com/felipecastrosales.png',
-    'username': 'felipecastrosales'
+  static const userReturnFromApi = {
+    'access': tAccessToken,
+    'refresh': tRefreshToken,
+    'expireIn': tExpiresIn,
   };
 
-  var model = UserModel(
-    name: 'felipecastrosales',
-    bornDate: DateTime(2003, 12, 26),
-    imageUrl: 'https://github.com/felipecastrosales.png',
-    username: 'felipecastrosales',
+  final tAuthModel = const AuthModel(
+    accessToken: tAccessToken,
+    refreshToken: tRefreshToken,
+    expiresIn: tExpiresIn,
   );
+
+  final tAuthEntity = const AuthEntity(
+    accessToken: tAccessToken,
+    refreshToken: tRefreshToken,
+    expiresIn: tExpiresIn,
+  );
+
+  final authApi = AuthModel.fromJson(userReturnFromApi);
 }

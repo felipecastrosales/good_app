@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
-import 'package:good_app/app/core/errors/failures/failure.dart';
+import 'package:good_app/app/core/errors/default/default_error.dart';
 import 'package:good_app/app/core/usecase/usecase.dart';
-import 'package:good_app/features/login/domain/entities/user.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 import 'package:good_app/features/login/domain/repositories/login_repository.dart';
 
 class LoginParams {
@@ -15,16 +15,16 @@ class LoginParams {
   final String password;
 }
 
-class DoLogin extends UseCase<User, LoginParams> {
-  final LoginRepository _loginRepository;
-
+class DoLogin extends UseCase<AuthEntity, LoginParams> {
   DoLogin({
-    required LoginRepository loginRepository,
-  }) : _loginRepository = loginRepository;
+    required LoginRepository repository,
+  }) : _repository = repository;
+
+  final LoginRepository _repository;
 
   @override
-  Future<Either<Failure, User>> call(LoginParams params) async {
-    return await _loginRepository.call(
+  Future<Either<DefaultError, AuthEntity>> call(LoginParams params) async {
+    return _repository.call(
       username: params.username,
       password: params.password,
     );
