@@ -1,127 +1,168 @@
 import 'package:dartz/dartz.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:good_app/app/core/errors/failures/not_found.dart';
-import 'package:good_app/app/core/errors/failures/password_wrong.dart';
-import 'package:good_app/features/login/domain/entities/user.dart';
+import 'package:good_app/app/core/errors/default/default_error.dart';
+import 'package:good_app/features/login/domain/entities/auth_entity.dart';
 import 'package:good_app/features/login/domain/repositories/login_repository.dart';
 import 'package:good_app/features/login/domain/usecases/do_login.dart';
 
-var tUser = User(
-  bornDate: faker.date.dateTime(),
-  username: username,
-  name: faker.person.name(),
-  imageUrl: faker.image.image(),
-);
+import '../../../../fixtures/models/user_fixtures.dart';
 
-var username = faker.internet.userName();
-var password = faker.internet.password();
-
-class MockDoLoginRepository extends Mock implements LoginRepository {}
+class MockLoginRepository extends Mock implements LoginRepository {}
 
 void main() {
-  LoginRepository doLoginRepository = MockDoLoginRepository();
-  DoLogin doLogin = DoLogin(loginRepository: doLoginRepository);
+  LoginRepository loginRepository = MockLoginRepository();
+  DoLogin doLogin = DoLogin(repository: loginRepository);
+
+  const realUsername = UserFixtures.realUsername;
+  const realPassword = UserFixtures.realPassword;
+  const tAccessToken = UserFixtures.tAccessToken;
+  const tRefreshToken = UserFixtures.tRefreshToken;
+  const tExpiresIn = UserFixtures.tExpiresIn;
 
   test('Should login', () async {
     when(
-      () => doLoginRepository.login(
+      () => loginRepository.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
     ).thenAnswer(
-      (_) async => Right(tUser),
+      (_) async => const Right(
+        AuthEntity(
+          accessToken: tAccessToken,
+          refreshToken: tRefreshToken,
+          expiresIn: tExpiresIn,
+        ),
+      ),
     );
 
     var result = await doLogin(
       LoginParams(
-        username: username,
-        password: password,
+        username: realUsername,
+        password: realPassword,
       ),
     );
 
-    expect(result, isA<Right>());
-    expect(result, Right(tUser));
+    expect(
+      result,
+      isA<Right>(),
+    );
+
+    expect(
+      result,
+      const Right(
+        AuthEntity(
+          accessToken: tAccessToken,
+          refreshToken: tRefreshToken,
+          expiresIn: tExpiresIn,
+        ),
+      ),
+    );
 
     verify(
-      () => doLoginRepository.login(
-        username: username,
-        password: password,
+      () => loginRepository.call(
+        username: realUsername,
+        password: realPassword,
       ),
     ).called(1);
 
-    verifyNoMoreInteractions(doLoginRepository);
+    verifyNoMoreInteractions(loginRepository);
   });
 
-  test('Should get wrong password error when logging in', () async {
+  test('Should get WrongPassword error when logging in', () async {
     when(
-      () => doLoginRepository.login(
+      () => loginRepository.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
     ).thenAnswer(
-      (_) async => Left(
-        PasswordWrongFailure(),
+      (_) async => const Left(
+        DefaultError.passwordWrong(),
       ),
     );
 
     var result = await doLogin(
       LoginParams(
-        username: username,
-        password: password,
+        username: realUsername,
+        password: realPassword,
       ),
     );
 
     expect(result, isA<Left>());
-    expect(
-      result,
-      Left(PasswordWrongFailure()),
-    );
+    expect(result, const Left(DefaultError.passwordWrong()));
 
     verify(
-      () => doLoginRepository.login(
-        username: username,
-        password: password,
+      () => loginRepository.call(
+        username: realUsername,
+        password: realPassword,
       ),
     ).called(1);
 
-    verifyNoMoreInteractions(doLoginRepository);
+    verifyNoMoreInteractions(loginRepository);
   });
 
-  test('Should get not found error when logging in', () async {
+  test('Should get NotFound error when logging in', () async {
     when(
-      () => doLoginRepository.login(
+      () => loginRepository.call(
         username: any(named: 'username'),
         password: any(named: 'password'),
       ),
     ).thenAnswer(
-      (_) async => Left(
-        NotFoundFailure(),
+      (_) async => const Left(
+        DefaultError.notFound(),
       ),
     );
 
     var result = await doLogin(
       LoginParams(
-        username: username,
-        password: password,
+        username: realUsername,
+        password: realPassword,
       ),
     );
 
     expect(result, isA<Left>());
-    expect(
-      result,
-      Left(NotFoundFailure()),
-    );
+    expect(result, const Left(DefaultError.notFound()));
 
     verify(
-      () => doLoginRepository.login(
-        username: username,
-        password: password,
+      () => loginRepository.call(
+        username: realUsername,
+        password: realPassword,
       ),
     ).called(1);
 
-    verifyNoMoreInteractions(doLoginRepository);
+    verifyNoMoreInteractions(loginRepository);
+  });
+
+  test('Should get ServerFailure error when logging in', () async {
+    when(
+      () => loginRepository.call(
+        username: any(named: 'username'),
+        password: any(named: 'password'),
+      ),
+    ).thenAnswer(
+      (_) async => const Left(
+        DefaultError.server(),
+      ),
+    );
+
+    var result = await doLogin(
+      LoginParams(
+        username: realUsername,
+        password: realPassword,
+      ),
+    );
+
+    expect(result, isA<Left>());
+    expect(result, const Left(DefaultError.server()));
+
+    verify(
+      () => loginRepository.call(
+        username: realUsername,
+        password: realPassword,
+      ),
+    ).called(1);
+
+    verifyNoMoreInteractions(loginRepository);
   });
 }
