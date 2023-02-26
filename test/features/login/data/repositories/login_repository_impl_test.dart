@@ -19,6 +19,11 @@ void main() {
   late MockLogger logger;
   late AppLogger appLogger;
   late MockAuthMapper authMapper;
+  // final MockLoginDataSource loginDataSource = MockLoginDataSource();
+  // final LoginRepositoryImpl loginRepositoryImpl = LoginRepositoryImpl();
+  // final MockLogger logger = MockLogger();
+  // final AppLogger appLogger = MockAppLogger();
+  // final MockAuthMapper authMapper = MockAuthMapper();
 
   const username = UserFixtures.realUsername;
   const password = UserFixtures.realPassword;
@@ -41,13 +46,15 @@ void main() {
   test('Should login', () async {
     when(
       () => loginDataSource.call(
-        username: any(named: 'username'),
-        password: any(named: 'password'),
+        username: username,
+        password: password,
       ),
     ).thenAnswer(
       // (invocation) async => Right(tAuthEntity),
-      (invocation) async => Right(
-        tAuthModel,
+      (invocation) => Future.value(
+        Right(
+          tAuthModel,
+        ),
       ),
     );
 
@@ -57,6 +64,8 @@ void main() {
       username: username,
       password: password,
     );
+
+    // when
 
     expect(tAuthModelToEntity, isA<AuthEntity>());
 
