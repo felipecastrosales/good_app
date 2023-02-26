@@ -1,16 +1,26 @@
-# good_app
+<p align="center">
+    <img src="assets\images\logo\logo_circle.png" width="100" alt="Logo Vakinha App"/>
+</p>
 
-A new Flutter project.
+<h1 align="center">Good App</h1>
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+### Clean Architecture and Related Concepts Study Project
 
-A few resources to get you started if this is your first Flutter project:
+This project aims to explore the Clean Architecture and other related software engineering concepts. The project will have a number of interesting content and approaches to the themes below:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Clean Architecture
+- Domain-Driven Design (DDD)
+- Test-Driven Development (TDD)
+- Dependency Injection (DI)
+- SOLID Principles
+- Design Patterns
+- Test and Code Coverage
+- Test Patterns
+- Flutter and Dart
+- Flutter Packages
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+Currently, I don't have the time to continue the project and make it even better. That's why I created [this issue](https://github.com/felipecastrosales/good_app/issues/8).
