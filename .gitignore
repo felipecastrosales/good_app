@@ -1,3 +1,10 @@
+# Generated files 
+*.freezed.dart
+*.g.dart
+
+# Ignore for project
+coverage
+
 # Miscellaneous
 *.class
 *.log
